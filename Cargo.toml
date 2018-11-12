@@ -1,0 +1,7 @@
+[package]
+name = "uymas"
+version = "0.1.0"
+release = "20181112"
+authors = ["Joshua Conero <brximl@163.com>"]
+
+[dependencies]
