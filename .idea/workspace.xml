@@ -2,7 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7c777fe-cfe3-4601-affb-8d1ea8d7a744" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/debug/.cargo-lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/.rustc_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/.fingerprint/base-0cf7b256b91a0326/bin-base-0cf7b256b91a0326" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/.fingerprint/base-0cf7b256b91a0326/bin-base-0cf7b256b91a0326" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/.fingerprint/base-0cf7b256b91a0326/bin-base-0cf7b256b91a0326.json" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/.fingerprint/base-0cf7b256b91a0326/bin-base-0cf7b256b91a0326.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/base.exe" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/base.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/base.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/base.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/deps/base-0cf7b256b91a0326.exe" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/deps/base-0cf7b256b91a0326.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/deps/base-0cf7b256b91a0326.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/deps/base-0cf7b256b91a0326.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/1m34wecwfz5eiv4s.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/1m34wecwfz5eiv4s.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/1u4iy5z2iz0nloy2.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/1u4iy5z2iz0nloy2.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/27g390e3pzstu58r.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/27g390e3pzstu58r.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/2gbi6nlutigg4w2.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/2gbi6nlutigg4w2.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/4wpz7kir9ajnca01.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/4wpz7kir9ajnca01.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/5dtu2orjzgr8lylf.o" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/5dtu2orjzgr8lylf.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/dep-graph.bin" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/dep-graph.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/query-cache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/query-cache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq-3tvwbrxqobd14/work-products.bin" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i-3tvwbrxqobd14/work-products.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgoivrbk-1ecx4yq.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/base/target/debug/incremental/base-33g2mv739mr5s/s-f6lgqa0gnx-1u4re8i.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,23 +56,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="gitignore" value="1" />
           <entry key="rs" value="2" />
           <entry key="toml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Rust" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
+          <entry key="gitignore" value="2" />
           <entry key="rs" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Rust" value="1" />
         </counts>
       </usages-collector>
@@ -74,15 +97,24 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/base/src/main.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="57">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
               <folding>
                 <element signature="e#10#11#0" expanded="true" />
                 <element signature="e#43#44#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -97,6 +129,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/lib.rs" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -198,6 +231,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -240,11 +274,18 @@
     <entry file="file://$PROJECT_DIR$/example/base/src/main.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
           <folding>
             <element signature="e#10#11#0" expanded="true" />
             <element signature="e#43#44#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
         </state>
       </provider>
     </entry>
