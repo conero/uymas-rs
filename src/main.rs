@@ -4,14 +4,24 @@ use std::env;
 use std::process::{Command, Stdio};
 
 // 系统常量
-const VERSION: &'static str = "1.0.0";
+const VERSION: &'static str = "1.0.1";
 const RELEASE: &'static str = "20181119";
+
+// 运行名字
+fn name_exec(s: &String) -> String{
+    let s = s.as_str().replace("\\", "/");
+    let v: Vec<&str> = s.as_str().split("/").collect();
+    let mut name = format!("{}", v.last().expect("_test"));
+    name = name.to_lowercase();
+    name = name.replace(".rs", "");
+    name
+}
 
 
 // 运行 fp 文件
 fn exec(fp: String){
     println!(" compiler the file: {}", fp);
-    let fname:String = String::from("test");
+    let fname:String = name_exec(&fp);
 
     Command::new("rustc")
         .arg(fp)
@@ -51,5 +61,10 @@ fn main() {
         println!(" 欢迎使用 uyrsc v{}/{}", VERSION, RELEASE);
         println!(" Joshua Conero");
         println!(" [using]: uyrsc.exe <file>");
+
+
+        // name_exec 函数测试
+        //assert_eq!("type.rs".to_string(), );
+        //println!("{}", name_exec(&"/type.rs.rs.RS".to_string()));
     }
 }
