@@ -1,5 +1,5 @@
 // 版本信息
-mod uymas {
-    const Version = "0.1.0";
-    const Release = "20181112";
+pub mod uymas {
+    pub const VERSION: &'static str = "0.1.0";
+    pub const RELEASE: &'static str = "20181112";
 }
