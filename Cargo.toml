@@ -1,6 +1,8 @@
 [package]
 name = "uyrsc"
-version = "0.1.0"
+version = "1.1.0"
 authors = ["Joshua Conero <brximl@163.com>"]
 
 [dependencies]
+#使用随机库
+rand = "0.6.0"
