@@ -32,8 +32,8 @@ impl Decimal{
             num = (num - md)/base;
         }
         // 数据收集
-        //let mut sque: Vec<str> = vec![];
-        let mut sque:Vec<str> = Vec::new();
+        let mut sque: Vec<str> = vec![];
+        //let mut sque:Vec<str> = Vec::new();
         let mut i = (bque.len() - 1) as i32;
         let mut ref_que:&mut Vec<u8>;
         // 非安全代码
