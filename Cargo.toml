@@ -3,6 +3,7 @@ name = "uymas"
 version = "0.1.0-apha"
 release = "20181112"
 authors = ["Joshua Conero <brximl@163.com>"]
+edition = "2018"
 
 [dependencies]
 
