@@ -12,6 +12,7 @@ impl Decimal{
     pub fn new(num: i32) -> Decimal {
         Decimal{num}
     }
+
     // 数据转换
     pub fn to_n(&self, base: i32) -> String{
         // 限制最大长度
@@ -21,7 +22,6 @@ impl Decimal{
         }
         let mut num = self.num;
         let mut bque: Vec<i32> = vec![];
-        //let mut value: String;
         loop {
             if num < base{
                 bque.push(num);
@@ -33,20 +33,23 @@ impl Decimal{
         }
         // 数据收集
         let mut sque: Vec<String> = vec![];
-        //let mut sque:Vec<str> = Vec::new();
-        let mut i = (bque.len() - 1) as i32;
 
         let ref_str = NUMBER_STR.get(..(base as usize));
-        //let ref_que = format!("{}", ref_str).split("");
-        //let ref_que = ref_str.expect(&"").split("");
+        // @TODO "test".unwrap().split("").collect() => ["", "", "", ""]
         let ref_que:Vec<&str> = ref_str.unwrap().split("").collect();
 
+        // 数据处理
+        let mut i = (bque.len() - 1) as i32;
         while i > -1{
             let index = (bque[i as usize]) as usize;
             sque.push(ref_que[index].to_string());
             i -= 1;
         }
-        //value = sque.join(&String::from(""))
+        //println!("ref_que => {:?}", ref_que);
+        //println!("sque => {:?}", sque);
+        //println!("bque => {:?}", bque);
+        //println!("test => {:?}", &"test".split("").collect() as Vec<&str>);
+        println!("test => {:?}", "test".chars());
         sque.join("")
     }
 }

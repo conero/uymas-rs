@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7c777fe-cfe3-4601-affb-8d1ea8d7a744" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/.rustc_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/.rustc_info.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/src/util/mod.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="348">
-              <caret line="61" column="49" selection-start-line="61" selection-start-column="49" selection-end-line="61" selection-end-column="49" />
+              <caret line="51" column="57" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -331,34 +328,34 @@
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="Test_lib_test__base - 2018.12.12 at 16h 22m 01s.xml">
-      <configuration name="Test lib_test::base" configurationId="CargoCommandRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_lib_test__base - 2018.12.12 at 16h 24m 21s.xml">
-      <configuration name="Test lib_test::base" configurationId="CargoCommandRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_decimal_test - 2018.12.12 at 16h 24m 32s.xml">
-      <configuration name="Test decimal_test" configurationId="CargoCommandRunConfiguration" />
-    </history-entry>
-    <history-entry file="testing - 2018.12.12 at 16h 24m 38s.xml">
+    <history-entry file="testing - 2018.12.13 at 23h 55m 16s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.12 at 16h 30m 06s.xml">
+    <history-entry file="testing - 2018.12.13 at 23h 59m 21s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.12 at 16h 36m 53s.xml">
+    <history-entry file="testing - 2018.12.14 at 00h 01m 00s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.12 at 16h 38m 35s.xml">
+    <history-entry file="testing - 2018.12.14 at 00h 01m 53s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.13 at 23h 42m 28s.xml">
+    <history-entry file="testing - 2018.12.14 at 00h 03m 53s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.13 at 23h 45m 15s.xml">
+    <history-entry file="testing - 2018.12.14 at 00h 04m 50s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
-    <history-entry file="testing - 2018.12.13 at 23h 46m 00s.xml">
+    <history-entry file="testing - 2018.12.14 at 00h 05m 02s.xml">
+      <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+    <history-entry file="testing - 2018.12.14 at 00h 05m 58s.xml">
+      <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+    <history-entry file="testing - 2018.12.14 at 00h 06m 25s.xml">
+      <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+    <history-entry file="testing - 2018.12.14 at 00h 06m 43s.xml">
       <configuration name="testing" configurationId="CargoCommandRunConfiguration" />
     </history-entry>
   </component>
@@ -512,7 +509,7 @@
     <entry file="file://$PROJECT_DIR$/src/util/mod.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
-          <caret line="61" column="49" selection-start-line="61" selection-start-column="49" selection-end-line="61" selection-end-column="49" />
+          <caret line="51" column="57" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
         </state>
       </provider>
     </entry>
