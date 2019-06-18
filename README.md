@@ -10,9 +10,12 @@
 
 rust 入门级个人库
 
-```ini
+```shell
 # 创建个人库 uymas
 $ cargo new uymas --lib
+
+# 项目代码格式化
+$ cargo fmt
 ```
 
 
