@@ -5,6 +5,26 @@ release = "20181112"
 authors = ["Joshua Conero <brximl@163.com>"]
 edition = "2018"
 
+[workspace]
+members = [
+    "core",
+    "cmd/uymas"
+]
+
+[lib]
+name = "uymas"
+#项目的入口文件
+path = "core/lib.rs"
+# 一个给目标启用单元测试 的 标志. 会被 `cargo test`使用.
+test = true
+#fmt = true
+
+# 一个给目标启用基准 的 标志. 会被 `cargo bench`使用.
+bench = true
+
+# 一个给目标启用文档 的 标志. 会被 `cargo doc`使用.
+doc = true
+
 [dependencies]
 
 
