@@ -1,6 +1,4 @@
 // 命令行路由器
-
-use std::borrow::Borrow;
 use std::env;
 use std::vec::Vec;
 
@@ -14,17 +12,26 @@ impl<'a> Router<'a> {
     // 默认参数为命令行输入的参数
     // 实例化
     pub fn new() -> Router<'a> {
-        let mut i = 0;
         let mut new_args: Vec<&str> = vec![];
-        for arg in env::args() {
-            i += 1;
-            if i == 1 {
-                continue;
-            }
-            new_args.push(arg.as_str())
+        /*for (i, arg) in env::args().enumerate() {
+            // i += 1;
+            // if i == 1 {
+            //     continue;
+            // }
+            // new_args.push(arg.as_str())
+            println!("{} -> {}", i, arg);
+            //new_args.push(&arg.as_str());
+        }*/
+        let args: Vec<String> = env::args().collect();
+        for arg in &args {
+            new_args.push(&arg.as_str());
         }
-        Router { args: new_args }
+        println!("{:?}", new_args);
+        Router { args: vec![] }
     }
+
+    // 内部值路由
+    fn _router(&self) {}
 
     // 设置参数
     // 可用于内部程序调试

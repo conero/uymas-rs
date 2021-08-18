@@ -13,7 +13,7 @@
 /// app.run();      // 运行命运
 /// ```
 // 模块列表
-mod router;
+pub mod router;
 
 // 项目测试
 #[cfg(test)]
