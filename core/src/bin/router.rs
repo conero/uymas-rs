@@ -1,4 +1,5 @@
 // 命令行路由器
+use crate::std_path;
 use std::env;
 use std::vec::Vec;
 
@@ -6,25 +7,44 @@ use std::vec::Vec;
 // @TODO 2019年6月18日 星期二 无法编译通过
 pub struct Router<'a> {
     args: Vec<&'a str>,
+    _base_dir: &'a str, //当前项目路径
 }
 
 impl<'a> Router<'a> {
     // 默认参数为命令行输入的参数
     // 实例化
     pub fn new() -> Router<'a> {
+        let mut router = Router {
+            args: vec![],
+            _base_dir: &"",
+        };
         let mut new_args: Vec<&str> = vec![];
         let args: Vec<String> = env::args().collect();
+        let mut i: i32 = -1;
         for arg in &args {
+            i += 1;
+            if i == 0 {
+                //let mut tmp_arg: &str = &mut arg.as_str();
+                let tmp_arg = std_path(&arg.as_str());
+                //tmp_arg = std_path(&tmp_arg).as_str();
+                //router._base_dir = *tmp_arg;
+                println!("tmp_arg -> {}", tmp_arg);
+                // @todo cannot return value referencing local variable `tmp_arg`
+                // router._base_dir = &tmp_arg.as_str();
+                continue;
+            }
             new_args.push(&arg.as_str());
         }
-        let router = Router { args: vec![] };
         router._router(new_args);
         return router;
     }
 
     // 带参数的实例化
     pub fn new_args(args: Vec<&str>) -> Router<'a> {
-        let router = Router { args: vec![] };
+        let router = Router {
+            args: vec![],
+            _base_dir: &"",
+        };
         router._router(args);
         return router;
     }

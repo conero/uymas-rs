@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c7c777fe-cfe3-4601-affb-8d1ea8d7a744" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/uymas/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/uymas/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/bin/router.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/bin/router.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/resource.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/resource.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/lib_test.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/lib_test.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,19 +82,8 @@
     </key>
   </component>
   <component name="RunManager" selected="Cargo.Run uymas">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test decimal_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package core --lib decimal_test" />
+    <configuration name="Test lib_test (1)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib lib_test::lib_test" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -107,8 +98,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test lib::tests" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package core --lib tests" />
+    <configuration name="Test lib_test::base" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib lib_test::base -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -123,8 +114,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test lib_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package core --lib lib_test" />
+    <configuration name="Test lib_test::lib_test::base" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib lib_test::lib_test::base -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -139,8 +130,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test tests::it_works" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package core --lib tests::it_works -- --exact" />
+    <configuration name="Test lib_test::test_std_path" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib lib_test::test_std_path -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -224,19 +215,19 @@
       <item itemvalue="Cargo.install" />
       <item itemvalue="Cargo.testing" />
       <item itemvalue="Cargo.Run uymas" />
-      <item itemvalue="Cargo.Test lib::tests" />
-      <item itemvalue="Cargo.Test tests::it_works" />
-      <item itemvalue="Cargo.Test lib_test" />
-      <item itemvalue="Cargo.Test decimal_test" />
       <item itemvalue="Cargo.Test util::test::new" />
+      <item itemvalue="Cargo.Test lib_test (1)" />
+      <item itemvalue="Cargo.Test lib_test::lib_test::base" />
+      <item itemvalue="Cargo.Test lib_test::base" />
+      <item itemvalue="Cargo.Test lib_test::test_std_path" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Cargo.Test lib_test::test_std_path" />
+        <item itemvalue="Cargo.Test lib_test::base" />
+        <item itemvalue="Cargo.Test lib_test::lib_test::base" />
+        <item itemvalue="Cargo.Test lib_test (1)" />
         <item itemvalue="Cargo.Test util::test::new" />
-        <item itemvalue="Cargo.Run uymas" />
-        <item itemvalue="Cargo.Test lib_test" />
-        <item itemvalue="Cargo.Test decimal_test" />
-        <item itemvalue="Cargo.Test tests::it_works" />
       </list>
     </recent_temporary>
   </component>
@@ -266,7 +257,7 @@
       <workItem from="1629214565080" duration="62000" />
       <workItem from="1629214642697" duration="32000" />
       <workItem from="1629214689113" duration="616000" />
-      <workItem from="1629248184380" duration="6805000" />
+      <workItem from="1629248184380" duration="12627000" />
     </task>
     <servers />
   </component>

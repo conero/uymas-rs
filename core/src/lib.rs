@@ -9,12 +9,22 @@ pub const TITLE: &'static str = "Rust 工具包";
 pub mod bin;
 pub mod util;
 
-// 程序测试
-#[cfg(test)]
-mod lib_test {
-    #[test]
-    fn base() {}
+// 公共函数
+pub fn std_path(vp: &str) -> String {
+    let mut v1 = String::from(vp);
+    v1 = v1.replace("\\\\", "/");
+    v1 = v1.replace("\\", "/");
+    v1
 }
+
+// 程序测试
+// #[cfg(test)]
+// mod lib_test {
+//     #[test]
+//     fn base() {}
+// }
+
+mod lib_test;
 
 #[cfg(test)]
 mod decimal_test {
