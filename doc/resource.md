@@ -18,3 +18,20 @@
 cargo doc --open
 ```
 
+
+
+编译二进制项目
+
+```shell
+# 编译
+cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml
+
+# 编译和运行
+cargo run --bin uymas --manifest-path .\cmd\uymas\Cargo.toml
+
+# 发布
+cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
+```
+
+
+

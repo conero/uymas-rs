@@ -13,25 +13,28 @@ impl<'a> Router<'a> {
     // 实例化
     pub fn new() -> Router<'a> {
         let mut new_args: Vec<&str> = vec![];
-        /*for (i, arg) in env::args().enumerate() {
-            // i += 1;
-            // if i == 1 {
-            //     continue;
-            // }
-            // new_args.push(arg.as_str())
-            println!("{} -> {}", i, arg);
-            //new_args.push(&arg.as_str());
-        }*/
         let args: Vec<String> = env::args().collect();
         for arg in &args {
             new_args.push(&arg.as_str());
         }
-        println!("{:?}", new_args);
-        Router { args: vec![] }
+        let router = Router { args: vec![] };
+        router._router(new_args);
+        return router;
+    }
+
+    // 带参数的实例化
+    pub fn new_args(args: Vec<&str>) -> Router<'a> {
+        let router = Router { args: vec![] };
+        router._router(args);
+        return router;
     }
 
     // 内部值路由
-    fn _router(&self) {}
+    fn _router(&self, args: Vec<&str>) {
+        for arg in args {
+            println!("_router -> {}", arg)
+        }
+    }
 
     // 设置参数
     // 可用于内部程序调试
