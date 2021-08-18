@@ -6,15 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="c7c777fe-cfe3-4601-affb-8d1ea8d7a744" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bin/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/bin/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bin/router.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/bin/router.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib_test.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/lib_test.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/decimal.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/test/decimal.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/core/util/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/uymas/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/bin/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/bin/router.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/lib_test.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/test/decimal.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/util/mod.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,13 +63,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pinyin-shared" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
@@ -84,99 +86,126 @@
       <recent name="D:\Joshua\gits-suroooog\conero\uymas-rs\master\src\util" />
     </key>
   </component>
-  <component name="RunManager" selected="Cargo.base">
-    <configuration name="Test bin" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+  <component name="RunManager" selected="Cargo.Run uymas">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test decimal_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib decimal_test" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
-      <option name="command" value="test --package uymas --bin mod &quot;&quot;" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test lib::tests" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib tests" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
     <configuration name="Test lib_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib lib_test" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
-      <option name="command" value="test --package uymas --lib lib_test" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test lib_test::base" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+    <configuration name="Test tests::it_works" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package core --lib tests::it_works -- --exact" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
-      <option name="command" value="test --package uymas --lib lib_test::base -- --exact" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
-      <method v="2">
-        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test router_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="channel" value="DEFAULT" />
-      <option name="command" value="test --package uymas --lib bin::router_test" />
-      <option name="allFeatures" value="false" />
-      <option name="emulateTerminal" value="false" />
-      <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <envs />
-      <method v="2">
-        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test util::test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="channel" value="DEFAULT" />
-      <option name="command" value="test --package uymas --lib util::test" />
-      <option name="allFeatures" value="false" />
-      <option name="emulateTerminal" value="false" />
-      <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
     <configuration name="base" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="channel" value="DEFAULT" />
       <option name="command" value="run" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/example/base" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="true" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$/example/base" />
       <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
     <configuration name="install" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="channel" value="DEFAULT" />
       <option name="command" value="install " />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="true" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
     <configuration name="testing" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="channel" value="DEFAULT" />
       <option name="command" value="test " />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
       <option name="backtrace" value="SHORT" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
@@ -185,15 +214,19 @@
       <item itemvalue="Cargo.base" />
       <item itemvalue="Cargo.install" />
       <item itemvalue="Cargo.testing" />
+      <item itemvalue="Cargo.Run uymas" />
+      <item itemvalue="Cargo.Test lib::tests" />
+      <item itemvalue="Cargo.Test tests::it_works" />
       <item itemvalue="Cargo.Test lib_test" />
-      <item itemvalue="Cargo.Test lib_test::base" />
-      <item itemvalue="Cargo.Test router_test" />
-      <item itemvalue="Cargo.Test util::test" />
-      <item itemvalue="Cargo.Test bin" />
+      <item itemvalue="Cargo.Test decimal_test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Cargo.Test bin" />
+        <item itemvalue="Cargo.Run uymas" />
+        <item itemvalue="Cargo.Test lib_test" />
+        <item itemvalue="Cargo.Test decimal_test" />
+        <item itemvalue="Cargo.Test tests::it_works" />
+        <item itemvalue="Cargo.Test lib::tests" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +234,7 @@
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -213,7 +247,16 @@
       <updated>1606974114552</updated>
       <workItem from="1606974117059" duration="2149000" />
       <workItem from="1607057674076" duration="27000" />
-      <workItem from="1607242516481" duration="1930000" />
+      <workItem from="1607242516481" duration="1959000" />
+      <workItem from="1629187966881" duration="1915000" />
+      <workItem from="1629192248262" duration="659000" />
+      <workItem from="1629192924859" duration="614000" />
+      <workItem from="1629213326115" duration="686000" />
+      <workItem from="1629214139362" duration="399000" />
+      <workItem from="1629214565080" duration="62000" />
+      <workItem from="1629214642697" duration="32000" />
+      <workItem from="1629214689113" duration="616000" />
+      <workItem from="1629248184380" duration="2090000" />
     </task>
     <servers />
   </component>
@@ -259,28 +302,6 @@
     </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1607057699244">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607057699244" />
-    <state width="1493" height="209" key="GridCell.Tab.0.bottom" timestamp="1606976267350">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="209" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606976267350" />
-    <state width="1493" height="209" key="GridCell.Tab.0.center" timestamp="1606976267350">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="209" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606976267350" />
-    <state width="1493" height="209" key="GridCell.Tab.0.left" timestamp="1606976267349">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="209" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606976267349" />
-    <state width="1493" height="209" key="GridCell.Tab.0.right" timestamp="1606976267350">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606976267350" />
+    <option name="version" value="3" />
   </component>
 </project>
