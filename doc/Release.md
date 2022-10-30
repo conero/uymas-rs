@@ -12,6 +12,9 @@
 
 ### v2.0.1/dev
 
+- **system**
+  - fix: 修复 `Cargo.` 配置无效的问题，在*workspace*环境下需配置在root下的meta配置中
+
 - **cli**
   - feat: `Args.contain_opts`  新增方式用于检测 option是否存在
   - fix:  修复 command 解析规则错误

@@ -32,6 +32,9 @@ $ cargo clean
 
 # 项目代码格式化
 $ cargo fmt
+
+# 编译代码
+cargo build -p uymas --release
 ```
 
 

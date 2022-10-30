@@ -4,3 +4,25 @@ members = [
     "uymas/cli",
     "cmd/uymas",
 ]
+
+
+[profile.release]
+# 需要设置到 root， 即 workspace 顶部
+# https://github.com/johnthagen/min-sized-rust 参照仓库优化打包尺寸
+#strip = true  # Automatically strip symbols from the binary.
+strip = "symbols"
+
+# Optimize for size.
+opt-level='s'
+
+lto = true
+panic = 'abort'
+
+codegen-units = 16
+#strip = "debuginfo"
+
+debug = false
+rpath = false
+incremental = false
+overflow-checks = false
+debug-assertions = false

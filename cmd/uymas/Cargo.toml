@@ -16,25 +16,6 @@ homepage = "https://github.com/conero/uymas-rs"
 name = "uymas"
 path = "main.rs"
 
-[profile.release]
-# https://github.com/johnthagen/min-sized-rust 参照仓库优化打包尺寸
-#strip = true  # Automatically strip symbols from the binary.
-strip = "symbols"
-
-# Optimize for size.
-opt-level='s'
-
-lto = true
-panic = 'abort'
-
-codegen-units = 16
-#strip = "debuginfo"
-
-debug = false
-rpath = false
-incremental = false
-overflow-checks = false
-debug-assertions = false
 
 [dependencies]
 cli = { version="2.0.0", path = "../../uymas/cli", package = "uymas_cli"}
