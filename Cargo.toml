@@ -1,6 +1,5 @@
 [workspace]
-#resolver = "2"
 members = [
-    "uymas/cli",
-    "cmd/uymas",
+    "egs/empty_min",     # 空编译代码用于大小比较
+    "egs/cmd_build_min", # 空依赖引入
 ]
