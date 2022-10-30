@@ -1,5 +1,5 @@
 [package]
-name = "cli"
+name = "uymas_cli"
 version = "2.0.0"
 edition = "2021"
 
@@ -8,6 +8,7 @@ description = "the fast and minimal dependency development tool for rust languag
 repository = "https://github.com/conero/uymas-rs"
 homepage = "https://github.com/conero/uymas-rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+#publish = ["conero"]
 
 [lib]
 path = "lib.rs"
