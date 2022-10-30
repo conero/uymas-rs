@@ -10,13 +10,14 @@ description = "the binary command line tool of uymas code library"
 license = "MIT"
 repository = "https://github.com/conero/uymas-rs"
 homepage = "https://github.com/conero/uymas-rs"
+#publish = ["conero"]
 
 [[bin]]
 name = "uymas"
 path = "main.rs"
 
 [dependencies]
-cli = { version="2.0.0", path = "../../uymas/cli" }
+cli = { version="2.0.0", path = "../../uymas/cli", package = "uymas_cli"}
 
 [profile.release]
 # https://github.com/johnthagen/min-sized-rust 参照仓库优化打包尺寸
