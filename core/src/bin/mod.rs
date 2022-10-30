@@ -13,12 +13,13 @@
 /// app.run();      // 运行命运
 /// ```
 // 模块列表
-mod router;
+pub mod router;
 
 // 项目测试
 #[cfg(test)]
 mod router_test {
     use crate::bin::router::Router;
+    use crate::router::Router;
 
     #[test]
     fn base_new() {
