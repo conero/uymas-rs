@@ -4,11 +4,26 @@
 
 
 
+### todo
+
+- [ ] uymas 编译模式下，二进制还是比较大。与 [hi-lang](https://github.com/conero/lang/tree/hi-lang/hi-rust/learning22) 中相差较大 （`#221030`）
+
+
+
+### v2.0.1/dev
+
+- **cli**
+  - feat: `Args.contain_opts`  新增方式用于检测 option是否存在
+  - fix:  修复 command 解析规则错误
+- **uymas**
+  - feat: 新增 `--version` , `--help` 等选项命令
+  - pref: 帮助命令描述完善
 
 
 
 
-### 2.0.0/2022-10-30
+
+### v2.0.0/2022-10-30
 
 因此系统已使用 v1版本号，遂本地版本命名为 v2。
 

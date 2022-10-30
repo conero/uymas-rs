@@ -1,18 +1,30 @@
-// extern crate cli;
+extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
 use cli::cmd::{ActionApp, Cmd};
-use cli::{PROJECT, VERSION};
+use cli::VERSION;
 
 struct Version {
-    arg: Option<Args>,
+    //arg: Option<Args>,
 }
 
 impl Action for Version {
     fn run(&self, _: &Args) {
-        println!("{}/v{}", PROJECT, VERSION)
+        println!("v{}", VERSION)
     }
+}
+
+// 绑定信息
+fn action_help(_: &Args) {
+    println!("命令如下：");
+    println!("test      参数解析测试");
+    println!("version   版本号输出");
+    println!();
+    println!("全局选项：");
+    println!(" --version,-v          输出版本号");
+    println!(" --help,-h,-?          查看帮助信息");
+    println!();
 }
 
 // 二进制文件
@@ -21,7 +33,7 @@ fn main() {
     let version = ActionApp {
         command: String::from("version"),
         alias: vec![],
-        action: Box::new(Version { arg: None }),
+        action: Box::new(Version {}),
     };
 
     cmd.register_action(Box::new(version));
@@ -39,16 +51,21 @@ fn main() {
     });
 
     // help
-    cmd.register("help", |_: &Args| {
-        println!("test      参数解析测试");
-        println!("version   版本号输出");
-    });
+    cmd.register("help", action_help);
 
     // 默认方法
-    cmd.empty(|_: &Args| {
-        println!("Rust 2022 for learning");
-        println!("Rust 语言实际代码，尽可能囊括教程所有知识点");
-        println!("本项目是一个命令行程序！");
+    cmd.empty(|args: &Args| {
+        if args.contain_opts(vec!["version", "v"]) {
+            let version = Version {};
+            version.run(args);
+            return;
+        } else if args.contain_opts(vec!["help", "?", "h"]) {
+            action_help(args);
+            return;
+        }
+        println!("$ uymas [command] [option]");
+        println!("uymas 命令行工具");
+        println!("uymas_cli 目标是创建快速依赖最小的命令行库");
         println!("v{}", VERSION);
     });
     cmd.run();

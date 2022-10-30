@@ -28,6 +28,16 @@ impl Args {
         None
     }
 
+    /// 查看是否存在 options
+    pub fn contain_opts(&self, keys: Vec<&str>) -> bool {
+        for key in keys {
+            if self.option.contains(&String::from(key)) {
+                return true;
+            }
+        }
+        false
+    }
+
     // 实例化函数
     pub fn new(args: &Vec<String>) -> Args {
         // 字段信息
@@ -54,12 +64,10 @@ impl Args {
         for arg in args {
             let long_opt = arg.find("--");
             let shot_opt = arg.find('-');
-            if count == 0 {
-                // 命令
-                if shot_opt.is_none() {
-                    command = String::from(arg);
-                }
-            } else if sub_command.len() == 0 && shot_opt == None {
+            if count == 0 && shot_opt.is_none() {
+                // 命令解析
+                command = String::from(arg);
+            } else if count == 1 && sub_command.len() == 0 && shot_opt == None {
                 // 子命令
                 sub_command = String::from(arg);
             } else {
