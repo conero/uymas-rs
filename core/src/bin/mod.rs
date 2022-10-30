@@ -19,6 +19,7 @@ pub mod router;
 #[cfg(test)]
 mod router_test {
     use crate::bin::router::Router;
+    use crate::router::Router;
 
     #[test]
     fn base_new() {

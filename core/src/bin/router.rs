@@ -14,7 +14,7 @@ impl<'a> Router<'a> {
     // 默认参数为命令行输入的参数
     // 实例化
     pub fn new() -> Router<'a> {
-        let mut router = Router {
+        let router = Router {
             args: vec![],
             _base_dir: &"",
         };
