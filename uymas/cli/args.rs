@@ -116,9 +116,15 @@ impl Args {
         // };
 
         for arg in args {
-            let long_opt = arg.find("--");
-            let shot_opt = arg.find('-');
-            let is_not_opt = shot_opt.is_none() || shot_opt.unwrap() != 0;
+            let mut long_opt: i32 = -1;
+            let mut shot_opt: i32 = -1;
+            if let Some(vi) = arg.find("--") {
+                long_opt = vi as i32;
+            };
+            if let Some(vi) = arg.find("-") {
+                shot_opt = vi as i32;
+            };
+            let is_not_opt = shot_opt != 0;
             if count == 0 && is_not_opt {
                 // 命令解析
                 command = String::from(arg);
@@ -126,9 +132,9 @@ impl Args {
                 // 子命令
                 sub_command = String::from(arg);
             } else {
-                if long_opt != None {
+                if long_opt == 0 {
                     let (_, opt) = arg.split_at(2);
-                    if !last_opt.is_empty() {
+                    if !last_value.is_empty() {
                         if !data.contains_key(last_opt.as_str()) {
                             data.insert(last_opt, last_value);
                         }
@@ -136,11 +142,19 @@ impl Args {
                     }
                     last_opt = String::from(opt);
                     option.push(String::from(&last_opt));
-                } else if shot_opt != None {
+                } else if shot_opt == 0 {
                     let (_, opt) = arg.split_at(1);
+                    let mut short_count = 0;
                     for by in opt.chars() {
                         last_opt = String::from(by);
+                        if !last_value.is_empty() && short_count == 0 {
+                            if !data.contains_key(last_opt.as_str()) {
+                                data.insert(last_opt, last_value);
+                            }
+                            last_value = Vec::new();
+                        }
                         option.push(String::from(&last_opt));
+                        short_count += 1;
                     }
                 } else {
                     last_value.push(String::from(arg));

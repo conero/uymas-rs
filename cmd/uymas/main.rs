@@ -31,7 +31,7 @@ fn action_help(_: &Args) {
 fn main() {
     let mut cmd = Cmd::new();
     let version = ActionApp {
-        command: String::from("version"),
+        command: "version".to_string(),
         alias: vec![],
         action: Box::new(Version {}),
     };

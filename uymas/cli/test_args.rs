@@ -48,6 +48,10 @@ fn parse() {
     let input: Vec<String> = vec![String::from("test-pool"), String::from("main")];
     let args = <Args as ArgsNew<&Vec<String>>>::new(&input);
     assert_eq!(args.command, "test-pool");
+
+    // case
+    let args = Args::from_str("git status");
+    assert_eq!(args.sub_command, "status");
 }
 
 #[test]
