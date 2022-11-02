@@ -39,3 +39,17 @@ cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
 
 
 
+
+
+### 概述
+
+
+
+> **系统分支**
+
+- master           主分支(未定分支)
+- try                   开发分支（需保证可正常编译）
+- try-choke       try 开发分支引起的错误（可能编译不过）
+
+
+
