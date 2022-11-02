@@ -20,13 +20,27 @@ fn args_contain_opts() {
 
     // case2
     let input: Vec<String> = vec![String::from("--version")];
-    let args = <Args as ArgsNew<&Vec<String>>>::new(&input);
+    let args = Args::new(&input);
     assert_eq!(args.contain_opts(vec!["version"]), true);
 
     // case3
     let input = vec!["-Xyz"];
-    let args = <Args as ArgsNew<Vec<&str>>>::new(input);
+    let args = Args::new(input);
     assert_eq!(args.contain_opts(vec!["z"]), true);
+
+    // case
+    let input: Vec<String> = vec![
+        String::from("git"),
+        String::from("remote"),
+        String::from("set-url"),
+        String::from("--add"),
+    ];
+    let args = Args::new(input);
+    assert_eq!(args.contain_opts(vec!["add"]), true);
+
+    // case
+    let args = Args::from_str("git log --stat");
+    assert_eq!(args.contain_opts(vec!["stat", "test"]), true);
 }
 
 #[test]

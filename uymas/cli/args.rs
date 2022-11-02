@@ -1,5 +1,6 @@
 use crate::cmd::get_os_args;
 use std::collections::HashMap;
+use std::fmt::Display;
 
 // 系统参数
 pub struct Args {
@@ -160,9 +161,13 @@ impl Args {
     /// 根据 os::args 获取参数
     pub fn from_os() -> Args {
         Args::from_args(&get_os_args())
-        // return Args::new(&get_os_args());
-        // let param = &get_os_args();
-        // return <&Vec<String> as ArgsValueVecString>::new(param);
+    }
+
+    /// 根据字符串转 Args 参数
+    pub fn from_str(param: &str) -> Args {
+        let queue = param.split(' ').collect();
+        let args: Vec<String> = into_string_vec(queue);
+        Args::from_args(&args)
     }
 }
 
@@ -180,18 +185,44 @@ pub trait ArgsNew<T> {
     fn new(param: T) -> Self;
 }
 
+/// Args 使用 `Vec<String>` 初始化
+/// ```
+/// use uymas_cli::args::{Args, ArgsNew};
+/// let cmd = Args::new(&vec![String::from("git"), String::from("remote"), String::from("-v")]);
+/// ```
 impl ArgsNew<&Vec<String>> for Args {
     fn new(param: &Vec<String>) -> Self {
         Args::from_args(&param)
     }
 }
 
-impl ArgsNew<Vec<&str>> for Args {
-    fn new(param: Vec<&str>) -> Self {
-        let mut args: Vec<String> = Vec::new();
-        for par in param {
-            args.push(String::from(par));
-        }
+/// Args 使用 `Vec<String>` 初始化
+/// ```
+/// use uymas_cli::args::{Args, ArgsNew};
+/// let cmd = Args::new(vec![String::from("git"), String::from("remote"), String::from("-v")]);
+/// ```
+/// Args 使用 `Vec<String>` 初始化
+/// ```
+/// use uymas_cli::args::{Args, ArgsNew};
+/// let cmd = Args::new(vec!["git", "remote", "-v"]);
+/// ```
+impl<T> ArgsNew<Vec<T>> for Args
+where
+    T: Display,
+{
+    fn new(param: Vec<T>) -> Self {
+        let args: Vec<String> = into_string_vec(param);
         Args::from_args(&args)
     }
+}
+
+fn into_string_vec<T>(args: Vec<T>) -> Vec<String>
+where
+    T: Display,
+{
+    let mut value: Vec<String> = Vec::new();
+    for arg in args {
+        value.push(format!("{}", arg));
+    }
+    value
 }
