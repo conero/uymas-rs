@@ -14,9 +14,10 @@
 
 - **system**
   - fix: 修复 `Cargo.` 配置无效的问题，在*workspace*环境下需配置在root下的meta配置中
-
 - **cli**
   - feat: `Args.contain_opts`  新增方式用于检测 option是否存在
+  - feat: `Args` 现在获取参数，如`stirng` ,  `i32`, `bool` 获取不懂类型的参数值
+  - feat: `Cmd` 通过 trait 实现 `Cmd::new` 方法重载，及支持空参数和非空参数实例化类型
   - fix:  修复 command 解析规则错误
 - **uymas**
   - feat: 新增 `--version` , `--help` 等选项命令

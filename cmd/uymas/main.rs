@@ -2,7 +2,7 @@ extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
-use cli::cmd::{ActionApp, Cmd};
+use cli::cmd::{ActionApp, Cmd, CmdFromOs};
 use cli::VERSION;
 
 struct Version {
@@ -29,7 +29,7 @@ fn action_help(_: &Args) {
 
 // 二进制文件
 fn main() {
-    let mut cmd = Cmd::from(vec![]);
+    let mut cmd = Cmd::new();
     let version = ActionApp {
         command: String::from("version"),
         alias: vec![],
