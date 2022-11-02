@@ -1,12 +1,11 @@
 use crate::action::Action;
-use crate::args::Args;
+use crate::args::{Args, ArgsNew};
 use std::collections::HashMap;
 use std::env;
 
 // 类型别名
 type ActionFn = fn(&Args);
 
-// @todo action 如何实现参数定义
 pub struct ActionApp {
     pub command: String, // 命令
     pub alias: Vec<String>,
@@ -24,12 +23,34 @@ pub struct Cmd {
     args: Option<Args>,
 }
 
+/// 将 `env::args` 转化为 Vec<String>
+pub fn get_os_args() -> Vec<String> {
+    let mut args: Vec<String> = Vec::new();
+    let mut idx = 0;
+    for arg in env::args() {
+        if idx < 1 {
+            idx += 1;
+            continue;
+        }
+        args.push(arg);
+    }
+    args
+}
+
+pub trait CmdFromOs {
+    fn new() -> Cmd;
+}
+
+pub trait CmdFromArgs {
+    fn new(param: Vec<&str>) -> Cmd;
+}
+
 // 为结构体添加方法
 impl Cmd {
     /// 通过参数初始化命令行程序
     /// # Examples
     /// ```
-    ///     use cli::cmd::Cmd;
+    ///     use uymas_cli::cmd::Cmd;
     ///     let app = Cmd::from(vec!["log", "--stat"]);
     /// ```
     pub fn from(param: Vec<&str>) -> Cmd {
@@ -51,17 +72,7 @@ impl Cmd {
 
     // 获取操作系统命令
     fn get_os_args(&mut self) {
-        let mut args: Vec<String> = Vec::new();
-        let mut idx = 0;
-        for arg in env::args() {
-            if idx < 1 {
-                idx += 1;
-                continue;
-            }
-            args.push(arg);
-        }
-
-        self.raw_args = args;
+        self.raw_args = get_os_args();
     }
 
     // 解析参数
@@ -132,5 +143,24 @@ impl Cmd {
         if !self.action_default.is_none() {
             (self.action_default.as_ref().unwrap())(self.args.as_ref().unwrap());
         }
+    }
+}
+
+impl CmdFromOs for Cmd {
+    /// 来源与系统的参数
+    /// ```
+    ///     use uymas_cli::cmd::{Cmd, CmdFromArgs};
+    ///     let cmd = Cmd::new();
+    /// ```
+    fn new() -> Cmd {
+        let mut cmd = Cmd::from(vec![]);
+        cmd.get_os_args();
+        cmd
+    }
+}
+
+impl CmdFromArgs for Cmd {
+    fn new(param: Vec<&str>) -> Cmd {
+        Cmd::from(param)
     }
 }

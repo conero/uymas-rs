@@ -1,7 +1,7 @@
 [package]
 name = "uymas"
 # yyyyMMdd/dev
-version = "2.0.0"
+version = "2.0.1"
 edition = "2021"
 authors = ["Joshua Conero"]
 
@@ -16,18 +16,7 @@ homepage = "https://github.com/conero/uymas-rs"
 name = "uymas"
 path = "main.rs"
 
+
 [dependencies]
 cli = { version="2.0.0", path = "../../uymas/cli", package = "uymas_cli"}
 
-[profile.release]
-# https://github.com/johnthagen/min-sized-rust 参照仓库优化打包尺寸
-strip = true  # Automatically strip symbols from the binary.
-
-# Optimize for size.
-opt-level='z'
-
-lto = true
-panic = 'abort'
-
-codegen-units = 1
-#strip = "debuginfo"

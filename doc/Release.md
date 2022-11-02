@@ -4,11 +4,32 @@
 
 
 
+### todo
+
+- [ ] uymas 编译模式下，二进制还是比较大。与 [hi-lang](https://github.com/conero/lang/tree/hi-lang/hi-rust/learning22) 中相差较大 （`#221030`）
+
+
+
+### v2.0.1/2022-11-02
+
+- **system**
+  - fix: 修复 `Cargo.` 配置无效的问题，在*workspace*环境下需配置在root下的meta配置中
+- **cli**
+  - feat: `Args.contain_opts`  新增方式用于检测 option是否存在
+  - feat: `Args` 现在获取参数，如`stirng` ,  `i32`, `bool` 获取不懂类型的参数值
+  - feat: `ArgsNew<T>` 新增trait 实现`Args`初始化不同参数重载
+  - feat: `Args.from_str` 方法新增实现，字符串到 Args 类型的转换
+  - feat: `Cmd` 通过 trait 实现 `Cmd::new` 方法重载，及支持空参数和非空参数实例化类型
+  - fix:  修复 command、data 解析规则错误
+- **uymas**
+  - feat: 新增 `--version` , `--help` 等选项命令
+  - pref: 帮助命令描述完善
 
 
 
 
-### 2.0.0/2022-10-30
+
+### v2.0.0/2022-10-30
 
 因此系统已使用 v1版本号，遂本地版本命名为 v2。
 
