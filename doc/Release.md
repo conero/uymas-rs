@@ -20,7 +20,7 @@
   - feat: `ArgsNew<T>` 新增trait 实现`Args`初始化不同参数重载
   - feat: `Args.from_str` 方法新增实现，字符串到 Args 类型的转换
   - feat: `Cmd` 通过 trait 实现 `Cmd::new` 方法重载，及支持空参数和非空参数实例化类型
-  - fix:  修复 command 解析规则错误
+  - fix:  修复 command、data 解析规则错误
 - **uymas**
   - feat: 新增 `--version` , `--help` 等选项命令
   - pref: 帮助命令描述完善

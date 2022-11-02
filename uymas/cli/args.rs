@@ -33,11 +33,7 @@ impl Args {
         // 获取参数
         for key in keys {
             if self.data.contains_key(key) {
-                let value = self.data.get(key);
-                if value != None {
-                    let vs = value.unwrap();
-                    return Some(vs);
-                }
+                return self.data.get(key);
             }
         }
         None
@@ -134,9 +130,9 @@ impl Args {
             } else {
                 if long_opt == 0 {
                     let (_, opt) = arg.split_at(2);
-                    if !last_value.is_empty() {
+                    if !last_value.is_empty() && !last_opt.is_empty() {
                         if !data.contains_key(last_opt.as_str()) {
-                            data.insert(last_opt, last_value);
+                            data.insert(last_opt.clone(), last_value);
                         }
                         last_value = Vec::new();
                     }
@@ -144,23 +140,28 @@ impl Args {
                     option.push(String::from(&last_opt));
                 } else if shot_opt == 0 {
                     let (_, opt) = arg.split_at(1);
-                    let mut short_count = 0;
+                    if !last_value.is_empty() && !last_opt.is_empty() {
+                        if !data.contains_key(last_opt.as_str()) {
+                            data.insert(last_opt.clone(), last_value);
+                        }
+                        last_value = Vec::new();
+                    }
                     for by in opt.chars() {
                         last_opt = String::from(by);
-                        if !last_value.is_empty() && short_count == 0 {
-                            if !data.contains_key(last_opt.as_str()) {
-                                data.insert(last_opt, last_value);
-                            }
-                            last_value = Vec::new();
-                        }
                         option.push(String::from(&last_opt));
-                        short_count += 1;
                     }
                 } else {
                     last_value.push(String::from(arg));
                 }
             }
             count += 1;
+        }
+
+        // 临界值（最后出现的）
+        if !last_value.is_empty() && !last_opt.is_empty() {
+            if !data.contains_key(last_opt.as_str()) {
+                data.insert(last_opt.clone(), last_value);
+            }
         }
 
         Args {

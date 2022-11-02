@@ -67,7 +67,7 @@ fn test_get_value_string() {
     assert_eq!(args.get_value_string(vec!["name"]), "joshua");
 
     // case2
-    let ipt2 = vec!["git", ""];
+    let ipt2 = vec!["git", "--name", "joshua", "Conero"];
     let args = <Args as ArgsNew<Vec<&str>>>::new(ipt2);
-    assert_eq!(args.get_value_string(vec!["name"]), "joshua");
+    assert_eq!(args.get_value_string(vec!["name"]), "joshua Conero");
 }
