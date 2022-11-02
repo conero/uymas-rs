@@ -10,7 +10,7 @@
 
 
 
-### v2.0.1/dev
+### v2.0.1/2022-11-02
 
 - **system**
   - fix: 修复 `Cargo.` 配置无效的问题，在*workspace*环境下需配置在root下的meta配置中
