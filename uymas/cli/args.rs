@@ -176,30 +176,22 @@ impl ArgsFromOs for Args {
     }
 }
 
-/// Args 参数使用 `vec<&str>` 获取参数
-pub trait ArgsValueVecStr {
-    /// 通过 Vec<&str> 实例化参数
-    fn new(param: Vec<&str>) -> Args;
+pub trait ArgsNew<T> {
+    fn new(param: T) -> Self;
 }
 
-impl ArgsValueVecStr for Args {
-    fn new(param: Vec<&str>) -> Args {
+impl ArgsNew<&Vec<String>> for Args {
+    fn new(param: &Vec<String>) -> Self {
+        Args::from_args(&param)
+    }
+}
+
+impl ArgsNew<Vec<&str>> for Args {
+    fn new(param: Vec<&str>) -> Self {
         let mut args: Vec<String> = Vec::new();
         for par in param {
             args.push(String::from(par));
         }
         Args::from_args(&args)
-    }
-}
-
-/// Args 参数使用 `vec<String>` 获取参数
-pub trait ArgsValueVecString {
-    /// 通过 Vec<&str> 实例化参数
-    fn new(param: &Vec<String>) -> Args;
-}
-
-impl ArgsValueVecString for Args {
-    fn new(param: &Vec<String>) -> Self {
-        Args::from_args(&param)
     }
 }
