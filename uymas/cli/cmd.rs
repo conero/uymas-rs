@@ -83,8 +83,11 @@ impl Cmd {
     }
 
     // 方法注册
-    pub fn register(&mut self, name: &str, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
-        self.calls.insert(String::from(name), action);
+    pub fn register<F>(&mut self, name: &str, action: F) -> &mut Cmd
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        self.calls.insert(String::from(name), Box::new(action));
         self
     }
 
@@ -94,14 +97,20 @@ impl Cmd {
     }
 
     // 默认方法
-    pub fn empty(&mut self, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
-        self.action_default = Some(action);
+    pub fn empty<F>(&mut self, action: F) -> &mut Cmd
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        self.action_default = Some(Box::new(action));
         self
     }
 
     // 不存时处理
-    pub fn un_found(&mut self, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
-        self.action_no_handler = Some(action);
+    pub fn un_found<F>(&mut self, action: F) -> &mut Cmd
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        self.action_no_handler = Some(Box::new(action));
         self
     }
 
