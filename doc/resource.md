@@ -53,3 +53,12 @@ cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
 
 
 
+
+
+
+
+### 附录
+
+#### 参考
+
+- [Rust中的闭包与关键字move](https://zhuanlan.zhihu.com/p/341815515)

@@ -1,5 +1,6 @@
 extern crate cli;
 
+use std::time::Instant;
 use cli::action::Action;
 use cli::args::Args;
 use cli::cmd::{ActionApp, Cmd, CmdFromOs};
@@ -29,6 +30,7 @@ fn action_help(_: &Args) {
 
 // 二进制文件
 fn main() {
+    let now = Instant::now();
     let mut cmd = Cmd::new();
     let version = ActionApp {
         command: "version".to_string(),
@@ -39,22 +41,30 @@ fn main() {
     cmd.register_action(Box::new(version));
 
     // 命令不存在
-    cmd.un_found(|args: &Args| println!("{} 命令未存在！", args.command));
+    cmd.un_found(Box::new(|args: &Args| {
+        println!("{} 命令未存在！", args.command)
+    }));
 
     // test
-    cmd.register("test", |args: &Args| {
-        println!("command: {}", args.command);
-        println!("sub_command: {}", args.sub_command);
-        println!("option: {:?}", args.option);
-        println!("data: {:?}", args.data);
-        println!("raw: {:?}", args.raw);
-    });
+    // move test
+    cmd.register(
+        "test",
+        Box::new(move |args: &Args| {
+            println!("command: {}", args.command);
+            println!("sub_command: {}", args.sub_command);
+            println!("option: {:?}", args.option);
+            println!("data: {:?}", args.data);
+            println!("raw: {:?}", args.raw);
+            println!();
+            println!("用时：{} 毫秒(ms).", now.elapsed().as_micros());
+        }),
+    );
 
     // help
-    cmd.register("help", action_help);
+    cmd.register("help", Box::new(action_help));
 
     // 默认方法
-    cmd.empty(|args: &Args| {
+    cmd.empty(Box::new(|args: &Args| {
         if args.contain_opts(vec!["version", "v"]) {
             let version = Version {};
             version.run(args);
@@ -67,6 +77,6 @@ fn main() {
         println!("uymas 命令行工具");
         println!("uymas_cli 目标是创建快速依赖最小的命令行库");
         println!("v{}", VERSION);
-    });
+    }));
     cmd.run();
 }

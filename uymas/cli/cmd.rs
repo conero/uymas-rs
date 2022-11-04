@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::env;
 
 // 类型别名
-type ActionFn = fn(&Args);
+// type ActionFn = fn(&Args);
 
 pub struct ActionApp {
     pub command: String, // 命令
@@ -16,10 +16,10 @@ pub struct ActionApp {
 
 pub struct Cmd {
     raw_args: Vec<String>,
-    calls: HashMap<String, ActionFn>,    // 函数集合
-    actions: Vec<ActionApp>,             //方法集合
-    action_default: Option<ActionFn>,    // 默认执行方法
-    action_no_handler: Option<ActionFn>, // 不存在的处理方法时
+    calls: HashMap<String, Box<dyn FnMut(&Args)>>, // 函数集合
+    actions: Vec<ActionApp>,                       //方法集合
+    action_default: Option<Box<dyn FnMut(&Args)>>, // 默认执行方法
+    action_no_handler: Option<Box<dyn FnMut(&Args)>>, // 不存在的处理方法时
     args: Option<Args>,
 }
 
@@ -83,7 +83,7 @@ impl Cmd {
     }
 
     // 方法注册
-    pub fn register(&mut self, name: &str, action: ActionFn) -> &mut Cmd {
+    pub fn register(&mut self, name: &str, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
         self.calls.insert(String::from(name), action);
         self
     }
@@ -94,24 +94,24 @@ impl Cmd {
     }
 
     // 默认方法
-    pub fn empty(&mut self, action: ActionFn) -> &mut Cmd {
+    pub fn empty(&mut self, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
         self.action_default = Some(action);
         self
     }
 
     // 不存时处理
-    pub fn un_found(&mut self, action: ActionFn) -> &mut Cmd {
+    pub fn un_found(&mut self, action: Box<dyn FnMut(&Args)>) -> &mut Cmd {
         self.action_no_handler = Some(action);
         self
     }
 
     // 命令行执行
-    pub fn run(&mut self) {
+    pub fn run(mut self) {
         let args = Args::new(&self.raw_args);
         self.args = Some(args);
 
         // 函数式定义参数
-        for (v_key, v_fn) in &self.calls {
+        for (v_key, mut v_fn) in self.calls {
             if self.args.as_ref().unwrap().command == String::from(v_key) {
                 v_fn(self.args.as_ref().unwrap());
                 return;
@@ -135,13 +135,13 @@ impl Cmd {
 
         // 命令不存在时
         if !self.action_no_handler.is_none() && !self.args.as_ref().unwrap().command.is_empty() {
-            (self.action_no_handler.as_ref().unwrap())(self.args.as_ref().unwrap());
+            (self.action_no_handler.unwrap())(self.args.as_ref().unwrap());
             return;
         }
 
         // 默认参数
         if !self.action_default.is_none() {
-            (self.action_default.as_ref().unwrap())(self.args.as_ref().unwrap());
+            (self.action_default.unwrap())(self.args.as_ref().unwrap());
         }
     }
 }
