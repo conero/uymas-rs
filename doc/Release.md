@@ -6,7 +6,7 @@
 
 ### todo
 
-- [ ] uymas 编译模式下，二进制还是比较大。与 [hi-lang](https://github.com/conero/lang/tree/hi-lang/hi-rust/learning22) 中相差较大 （`#221030`）
+- [x] uymas 编译模式下，二进制还是比较大。与 [hi-lang](https://github.com/conero/lang/tree/hi-lang/hi-rust/learning22) 中相差较大 （`#221030`）
 
 
 
@@ -14,6 +14,7 @@
 
 - **cli**
   - pref!: [实验性] 使用 `cmd` 函数注册支持 `move`，参数需额外添加 `Box::new` 进行修饰
+  - pref: 将测试脚本移到项目的“tests”目录下
 
 
 
