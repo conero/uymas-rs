@@ -1,5 +1,7 @@
-use crate::args::{Args, ArgsNew};
+// extern crate uymas_cli as cli;
+// 执行测试用例: `cargo test --test test_args`
 use std::env;
+use uymas_cli::args::{Args, ArgsNew};
 
 #[test]
 fn cmd_from() {

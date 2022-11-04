@@ -10,6 +10,6 @@ pub mod args;
 // 方法集合
 pub mod action;
 
-// 测试用例
-#[cfg(test)]
-mod test_args;
+// 测试用例，使用 tests 代替
+// #[cfg(test)]
+// mod test_args;
