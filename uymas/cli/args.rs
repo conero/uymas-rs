@@ -49,27 +49,34 @@ impl Args {
     }
 
     /// 获取 `Option<String>` 类型
+    #[deprecated(since = "2.0.1", note = "use the `get_option_string` instead")]
     pub fn get_value_string_option(&self, keys: Vec<&str>) -> Option<String> {
-        if let Some(v) = self.get_value(keys) {
-            let value = String::from(v.join(" ").trim());
-            return Some(value);
-        }
-        None
+        self.get_option_string(keys)
     }
 
     /// 获取 i32 数据类型
     pub fn get_value_i32(&self, keys: Vec<&str>) -> i32 {
-        if let Some(v) = self.get_value_string_option(keys) {
-            return v.parse::<i32>().unwrap();
+        if let Some(v) = self.get_option_isize(keys) {
+            return v as i32;
         }
         0
     }
 
+    /// 获取 bool 类型数据
     pub fn get_value_bool(&self, keys: Vec<&str>) -> bool {
-        return if let Some(v) = self.get_value_string_option(keys) {
-            v.parse::<bool>().unwrap()
+        return if let Some(v) = self.get_option_bool(keys) {
+            v
         } else {
-            true
+            false
+        };
+    }
+
+    /// 获取 bool 类型数据
+    pub fn get_value_f64(&self, keys: Vec<&str>) -> f64 {
+        return if let Some(v) = self.get_option_f64(keys) {
+            v
+        } else {
+            0.0
         };
     }
 
@@ -183,6 +190,50 @@ impl Args {
         let queue = param.split(' ').collect();
         let args: Vec<String> = into_string_vec(queue);
         Args::from_args(&args)
+    }
+
+    /// 获取
+    pub fn get_option_string(&self, keys: Vec<&str>) -> Option<String> {
+        if let Some(v) = self.get_value(keys) {
+            let value = String::from(v.join(" ").trim());
+            return Some(value);
+        }
+        None
+    }
+
+    /// 获取 i32 参数
+    pub fn get_option_isize(&self, keys: Vec<&str>) -> Option<isize> {
+        if let Some(v) = self.get_option_string(keys) {
+            match v.parse::<isize>() {
+                Ok(value) => return Some(value),
+                Err(_) => (),
+            };
+        }
+        None
+    }
+
+    /// 获取 bool 类型
+    pub fn get_option_bool(&self, keys: Vec<&str>) -> Option<bool> {
+        if let Some(v) = self.get_option_string(keys) {
+            match v.parse::<bool>() {
+                Ok(value) => return Some(value),
+                Err(_) => (),
+            };
+            // 存在时默认为存在
+            return Some(true);
+        }
+        None
+    }
+
+    /// 获取 f64 类型
+    pub fn get_option_f64(&self, keys: Vec<&str>) -> Option<f64> {
+        if let Some(v) = self.get_option_string(keys) {
+            match v.parse::<f64>() {
+                Ok(value) => return Some(value),
+                Err(_) => (),
+            };
+        }
+        None
     }
 }
 

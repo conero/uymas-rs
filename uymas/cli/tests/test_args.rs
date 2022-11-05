@@ -1,17 +1,6 @@
 // extern crate uymas_cli as cli;
 // 执行测试用例: `cargo test --test test_args`
-use std::env;
 use uymas_cli::args::{Args, ArgsNew};
-
-#[test]
-fn cmd_from() {
-    //let app = Cmd::from(vec![]);
-    println!("{:?}", env::args());
-
-    for argument in env::args() {
-        println!("{argument}");
-    }
-}
 
 #[test]
 fn args_contain_opts() {
@@ -72,4 +61,21 @@ fn test_get_value_string() {
     let ipt2 = vec!["git", "--name", "joshua", "Conero"];
     let args = <Args as ArgsNew<Vec<&str>>>::new(ipt2);
     assert_eq!(args.get_value_string(vec!["name"]), "joshua Conero");
+}
+
+#[test]
+fn test_get_value_i32() {
+    // case
+    let args = Args::new(vec![
+        "uymas", "--age", "2", "--year", "2022", "-xYZ", "1949",
+    ]);
+    assert_eq!(2, args.get_value_i32(vec!["age"]));
+    assert_eq!(2022, args.get_value_i32(vec!["year"]));
+    assert_eq!(1949, args.get_value_i32(vec!["Z"]));
+
+    // case
+    let args = Args::new(vec!["uymas", "--age=30", "--wight=100", "-xYZ", "11"]);
+    assert_eq!(30, args.get_value_i32(vec!["age"]));
+    assert_eq!(100, args.get_value_i32(vec!["wight"]));
+    assert_eq!(0, args.get_value_i32(vec!["Z"]));
 }
