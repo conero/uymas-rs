@@ -90,7 +90,29 @@ impl Args {
         false
     }
 
-    fn _parse_option() {}
+    // 参数解析处理过程参数
+    fn _args_update_data(
+        data: &HashMap<String, Vec<String>>,
+        last_opt: &String,
+        last_value: &Vec<String>,
+    ) -> (HashMap<String, Vec<String>>, Vec<String>) {
+        let mut new_data = data.clone();
+        let mut new_value = last_value.clone();
+
+        if !last_opt.is_empty() && !last_value.is_empty() {
+            if data.contains_key(last_opt.as_str()) {
+                let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
+                for lv in new_value {
+                    exits_value.push(lv);
+                }
+                new_data.insert(last_opt.clone(), exits_value.to_vec());
+            } else {
+                new_data.insert(last_opt.clone(), new_value);
+            }
+            new_value = Vec::new();
+        }
+        (new_data, new_value)
+    }
 
     /// 实例化函数，解析桉树为命令行。`Cmd.data` 解析参照 url.Values 解析规则，即默认为 Vec<String>
     /// ```
@@ -136,52 +158,38 @@ impl Args {
                 // 子命令
                 sub_command = String::from(arg);
             } else {
-                if long_opt == 0 {
-                    let (_, opt) = arg.split_at(2);
-                    if !last_value.is_empty() && !last_opt.is_empty() {
-                        if !data.contains_key(last_opt.as_str()) {
-                            data.insert(last_opt.clone(), last_value);
-                        } else {
-                            let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
-                            for lv in last_value {
-                                exits_value.push(lv);
+                if long_opt == 0 || shot_opt == 0 {
+                    let (ndt, nv) = Args::_args_update_data(&data, &last_opt, &last_value);
+                    data = ndt;
+                    last_value = nv;
+
+                    // 选项处理
+                    let is_log_opt = long_opt == 0;
+                    let split_idx = if is_log_opt { 2 } else { 1 };
+                    let (_, opt) = arg.split_at(split_idx);
+
+                    if is_log_opt {
+                        last_opt = String::from(opt);
+                    } else {
+                        for by in opt.chars() {
+                            last_opt = String::from(by);
+                            if last_opt.find("=").is_none() {
+                                option.push(String::from(&last_opt));
                             }
-                            data.insert(last_opt.clone(), exits_value.to_vec());
                         }
-                        last_value = Vec::new();
                     }
-                    last_opt = String::from(opt);
-                    if equal_opt > 0 {
-                        // 处理含等于符号的选项
-                        let (eq_key, eq_value) = last_opt.split_at(equal_opt - 2);
-                        last_value.push(String::from(&eq_value[1..]));
-                        last_opt = String::from(eq_key);
-                    }
-                    option.push(String::from(&last_opt));
-                } else if shot_opt == 0 {
-                    let (_, opt) = arg.split_at(1);
-                    if !last_value.is_empty() && !last_opt.is_empty() {
-                        if !data.contains_key(last_opt.as_str()) {
-                            data.insert(last_opt.clone(), last_value);
-                        } else {
-                            let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
-                            for lv in last_value {
-                                exits_value.push(lv);
-                            }
-                            data.insert(last_opt.clone(), exits_value.to_vec());
-                        }
-                        last_value = Vec::new();
-                    }
-                    for by in opt.chars() {
-                        last_opt = String::from(by);
-                        option.push(String::from(&last_opt));
+
+                    if let Some(vi) = last_opt.find("=") {
+                        equal_opt = vi;
                     }
                     if equal_opt > 0 {
                         // 处理含等于符号的选项
                         let (eq_key, eq_value) = last_opt.split_at(equal_opt);
-                        last_value.push(String::from(eq_value));
+                        last_value.push(String::from(&eq_value[1..]));
                         last_opt = String::from(eq_key);
                     }
+
+                    option.push(String::from(&last_opt));
                 } else {
                     last_value.push(String::from(arg));
                 }
@@ -190,11 +198,8 @@ impl Args {
         }
 
         // 临界值（最后出现的）
-        if !last_value.is_empty() && !last_opt.is_empty() {
-            if !data.contains_key(last_opt.as_str()) {
-                data.insert(last_opt.clone(), last_value);
-            }
-        }
+        let (ndt, _) = Args::_args_update_data(&data, &last_opt, &last_value);
+        data = ndt;
 
         Args {
             command,
