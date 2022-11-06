@@ -13,10 +13,18 @@
 ### v2.0.2/dev
 
 - **cli**
+  
   - feat(Args): 新增方法 `get_option_x` 获取整形、bool、浮点型等
-  - pref(Args)!: [实验性] 使用 `cmd` 函数注册支持 `move`
+  
+  - pref(Args)!: 使用 `cmd` 函数注册支持 `move`
+  
   - pref(Args): 将测试脚本移到项目的“tests”目录下
+  
   - pref(Args): 方法 `get_value_x` 调整根据 `get_option_x` 获取，并可忽略异常 
+  
+  - pref(Args): 参数解析支持`--key=value`
+  
+    
 
 
 

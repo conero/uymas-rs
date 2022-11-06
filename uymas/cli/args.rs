@@ -90,12 +90,15 @@ impl Args {
         false
     }
 
+    fn _parse_option() {}
+
     /// 实例化函数，解析桉树为命令行。`Cmd.data` 解析参照 url.Values 解析规则，即默认为 Vec<String>
     /// ```
     ///  // 解析 "rustc --version" 命令
     /// use uymas_cli::cmd::{Cmd, CmdFromArgs};
     /// let cmd = Cmd::new(vec!["rustc", "--version"]);
     /// ```
+    /// @todo 将 option 处理中重复的代码提取为方法执行以复用代码
     pub fn from_args(args: &Vec<String>) -> Args {
         // 字段信息
         let mut command = String::new(); // 命令
@@ -108,25 +111,23 @@ impl Args {
         let mut last_opt = String::new(); // 最新的opt缓存
         let mut last_value: Vec<String> = Vec::new(); // 最新的value缓存
 
-        // 使用闭包函数
-        // let update_data_value = |v_opt: &String| {
-        //     if !v_opt.is_empty(){
-        //         if !data.contains_key(v_opt.as_str()){
-        //             data.insert(v_opt, last_value);
-        //         }
-        //         last_value = Vec::new();
-        //     }
-        // };
-
         for arg in args {
+            let arg = &String::from(arg.trim());
+            if arg.is_empty() || arg.len() < 1 {
+                continue;
+            }
             let mut long_opt: i32 = -1;
             let mut shot_opt: i32 = -1;
+            let mut equal_opt: usize = 0; // 是否含等于
             if let Some(vi) = arg.find("--") {
                 long_opt = vi as i32;
             };
             if let Some(vi) = arg.find("-") {
                 shot_opt = vi as i32;
             };
+            if let Some(vi) = arg.find("=") {
+                equal_opt = vi;
+            }
             let is_not_opt = shot_opt != 0;
             if count == 0 && is_not_opt {
                 // 命令解析
@@ -140,22 +141,46 @@ impl Args {
                     if !last_value.is_empty() && !last_opt.is_empty() {
                         if !data.contains_key(last_opt.as_str()) {
                             data.insert(last_opt.clone(), last_value);
+                        } else {
+                            let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
+                            for lv in last_value {
+                                exits_value.push(lv);
+                            }
+                            data.insert(last_opt.clone(), exits_value.to_vec());
                         }
                         last_value = Vec::new();
                     }
                     last_opt = String::from(opt);
+                    if equal_opt > 0 {
+                        // 处理含等于符号的选项
+                        let (eq_key, eq_value) = last_opt.split_at(equal_opt - 2);
+                        last_value.push(String::from(&eq_value[1..]));
+                        last_opt = String::from(eq_key);
+                    }
                     option.push(String::from(&last_opt));
                 } else if shot_opt == 0 {
                     let (_, opt) = arg.split_at(1);
                     if !last_value.is_empty() && !last_opt.is_empty() {
                         if !data.contains_key(last_opt.as_str()) {
                             data.insert(last_opt.clone(), last_value);
+                        } else {
+                            let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
+                            for lv in last_value {
+                                exits_value.push(lv);
+                            }
+                            data.insert(last_opt.clone(), exits_value.to_vec());
                         }
                         last_value = Vec::new();
                     }
                     for by in opt.chars() {
                         last_opt = String::from(by);
                         option.push(String::from(&last_opt));
+                    }
+                    if equal_opt > 0 {
+                        // 处理含等于符号的选项
+                        let (eq_key, eq_value) = last_opt.split_at(equal_opt);
+                        last_value.push(String::from(eq_value));
+                        last_opt = String::from(eq_key);
                     }
                 } else {
                     last_value.push(String::from(arg));

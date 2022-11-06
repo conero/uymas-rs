@@ -77,5 +77,5 @@ fn test_get_value_i32() {
     let args = Args::new(vec!["uymas", "--age=30", "--wight=100", "-xYZ", "11"]);
     assert_eq!(30, args.get_value_i32(vec!["age"]));
     assert_eq!(100, args.get_value_i32(vec!["wight"]));
-    assert_eq!(0, args.get_value_i32(vec!["Z"]));
+    assert_eq!(11, args.get_value_i32(vec!["Z"]));
 }
