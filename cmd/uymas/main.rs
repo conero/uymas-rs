@@ -6,6 +6,9 @@ use cli::cmd::{ActionApp, Cmd, CmdFromOs};
 use cli::VERSION;
 use std::time::Instant;
 
+// 注入式类型
+mod repl_cmd;
+
 struct Version {
     //arg: Option<Args>,
 }
@@ -72,6 +75,12 @@ fn main() {
         println!("uymas 命令行工具");
         println!("uymas_cli 目标是创建快速依赖最小的命令行库");
         println!("v{}", VERSION);
+    });
+
+    // 注入式代码处理
+    let mut repl = repl_cmd::ReplCmd::new();
+    cmd.register("repl", move |args: &Args| {
+        repl.run(args);
     });
 
     cmd.run();

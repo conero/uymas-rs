@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::fmt::Display;
 
 // 系统参数
+#[derive(Debug)]
 pub struct Args {
     // 命令行
     pub command: String,
@@ -321,4 +322,22 @@ where
         value.push(format!("{}", arg));
     }
     value
+}
+
+impl Copy for Args {}
+
+impl Clone for Args {
+    // fn clone(&self) -> Self {
+    //     Args {
+    //         command: self.command.clone(),
+    //         sub_command: self.sub_command.clone(),
+    //         option: vec![],
+    //         data: HashMap::new(),
+    //         raw: vec![],
+    //     }
+    // }
+
+    fn clone(&self) -> Args {
+        *self
+    }
 }
