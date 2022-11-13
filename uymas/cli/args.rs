@@ -324,20 +324,16 @@ where
     value
 }
 
-impl Copy for Args {}
+// impl Copy for Args {}
 
 impl Clone for Args {
-    // fn clone(&self) -> Self {
-    //     Args {
-    //         command: self.command.clone(),
-    //         sub_command: self.sub_command.clone(),
-    //         option: vec![],
-    //         data: HashMap::new(),
-    //         raw: vec![],
-    //     }
-    // }
-
-    fn clone(&self) -> Args {
-        *self
+    fn clone(&self) -> Self {
+        Args {
+            command: self.command.clone(),
+            sub_command: self.sub_command.clone(),
+            option: self.option.clone(),
+            data: self.data.clone(),
+            raw: self.raw.clone(),
+        }
     }
 }

@@ -24,6 +24,7 @@ fn action_help(_: &Args) {
     println!("命令如下：");
     println!("test      参数解析测试");
     println!("version   版本号输出");
+    println!("repl      交互式命令行测试");
     println!();
     println!("全局选项：");
     println!(" --version,-v          输出版本号");
