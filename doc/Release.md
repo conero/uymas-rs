@@ -10,6 +10,16 @@
 
 
 
+### v2.1.0/dev
+
+- **cli**
+  - feat(Cmd): 新增方法 `from_str` 用于实现 `&str` 初始化 `Cmd `
+  - feat(Cmd): 实现 `Default` trait
+- **uymas**
+  - pref: `repl`添加 help, 以及默认命令
+
+
+
 ### v2.0.2/2022-11-14
 
 - **cli**

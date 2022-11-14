@@ -70,6 +70,16 @@ impl Cmd {
         return app;
     }
 
+    /// 通过 `str` 初始化 Cmd
+    pub fn from_str(param: &str) -> Cmd {
+        let args = Args::from_str(param);
+        let mut cmd = Cmd {
+            ..Default::default()
+        };
+        cmd.args = Some(args);
+        cmd
+    }
+
     // 获取操作系统命令
     fn get_os_args(&mut self) {
         self.raw_args = get_os_args();
@@ -116,8 +126,10 @@ impl Cmd {
 
     // 命令行执行
     pub fn run(mut self) {
-        let args = Args::new(&self.raw_args);
-        self.args = Some(args);
+        if self.args.is_none() {
+            let args = Args::new(&self.raw_args);
+            self.args = Some(args);
+        }
 
         // 函数式定义参数
         for (v_key, mut v_fn) in self.calls {
@@ -171,5 +183,19 @@ impl CmdFromOs for Cmd {
 impl CmdFromArgs for Cmd {
     fn new(param: Vec<&str>) -> Cmd {
         Cmd::from(param)
+    }
+}
+
+// 默认类型
+impl Default for Cmd {
+    fn default() -> Self {
+        Cmd {
+            raw_args: vec![],
+            calls: Default::default(),
+            actions: vec![],
+            action_default: None,
+            action_no_handler: None,
+            args: None,
+        }
     }
 }
