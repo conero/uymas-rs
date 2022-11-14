@@ -37,13 +37,18 @@ pub fn get_os_args() -> Vec<String> {
 }
 
 /// 来自Os::Args实例化的命令行
-pub trait CmdFromOs {
-    fn new() -> Cmd;
+pub trait CmdRunOs {
+    fn run(&mut self);
 }
 
 /// 来源自定义Args实例化的命令行
-pub trait CmdFromArgs {
-    fn new(param: Vec<&str>) -> Cmd;
+pub trait CmdRunArgs {
+    fn run(&mut self, param: Vec<&str>);
+}
+
+/// 来源自定义Args实例化的命令行
+pub trait CmdRunStr {
+    fn run(&mut self, param: &str);
 }
 
 // 为结构体添加方法
@@ -91,6 +96,16 @@ impl Cmd {
         if self.raw_args.is_empty() {
             self.get_os_args()
         }
+        if self.args.is_none() {
+            let args = Args::new(&self.raw_args);
+            self.args = Some(args);
+        }
+    }
+
+    // 设置参数
+    fn set_args(&mut self, args: Args) -> &mut Cmd {
+        self.args = Some(args);
+        self
     }
 
     // 方法注册
@@ -126,14 +141,10 @@ impl Cmd {
     }
 
     // 命令行执行
-    pub fn run(mut self) {
-        if self.args.is_none() {
-            let args = Args::new(&self.raw_args);
-            self.args = Some(args);
-        }
-
+    pub fn run(&mut self) {
+        self.parse_args();
         // 函数式定义参数
-        for (v_key, mut v_fn) in self.calls {
+        for (v_key, v_fn) in &self.calls {
             if self.args.as_ref().unwrap().command == String::from(v_key) {
                 v_fn(self.args.as_ref().unwrap());
                 return;
@@ -168,22 +179,29 @@ impl Cmd {
     }
 }
 
-impl CmdFromOs for Cmd {
+impl CmdRunOs for Cmd {
     /// 来源与系统的参数
     /// ```
-    ///     use uymas_cli::cmd::{Cmd, CmdFromArgs};
+    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
     ///     let cmd = Cmd::new();
     /// ```
-    fn new() -> Cmd {
-        let mut cmd = Cmd::from(vec![]);
-        cmd.get_os_args();
-        cmd
+    fn run(&mut self) {
+        let args = Args::from_os();
+        self.set_args(args).run();
     }
 }
 
-impl CmdFromArgs for Cmd {
-    fn new(param: Vec<&str>) -> Cmd {
-        Cmd::from(param)
+impl CmdRunArgs for Cmd {
+    fn run(&mut self, param: Vec<&str>) {
+        let args = Args::new(param);
+        self.set_args(args).run();
+    }
+}
+
+impl CmdRunStr for Cmd {
+    fn run(&mut self, param: &str) {
+        let args = Args::from_str(param);
+        self.set_args(args).run();
     }
 }
 

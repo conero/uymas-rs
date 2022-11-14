@@ -15,6 +15,7 @@
 - **cli**
   - feat(Cmd): 新增方法 `from_str` 用于实现 `&str` 初始化 `Cmd `
   - feat(Cmd): 实现 `Default` trait
+  - feat(Cmd): 尝试调整方法结构，是`Cmd::new` 后可多次 `Cmd.run`。(*<span style="color:red">程序异常</span>*)
 - **uymas**
   - pref: `repl`添加 help, 以及默认命令
 

@@ -2,7 +2,7 @@ extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
-use cli::cmd::{ActionApp, Cmd, CmdFromOs};
+use cli::cmd::{ActionApp, Cmd, CmdRunOs};
 use cli::VERSION;
 use std::time::Instant;
 
