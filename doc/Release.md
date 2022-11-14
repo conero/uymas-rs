@@ -10,7 +10,7 @@
 
 
 
-### v2.0.2/dev
+### v2.0.2/2022-11-14
 
 - **cli**
   
@@ -24,7 +24,12 @@
   
   - pref(Args): 参数解析支持`--key=value`
   
-    
+  - pref(cli): Args 参数解析使用方法减少代码冗余
+  
+  - pref(cli): Args 尝试继承 Copy 
+- **uymas**
+  - feat: uymas 新增 repl 命令 
+  
 
 
 
