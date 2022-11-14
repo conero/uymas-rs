@@ -3,12 +3,12 @@ pub const VERSION: &'static str = "2.0.1";
 /// 项目代码
 pub const PROJECT: &'static str = "learn";
 
-// 命令行工具
-pub mod cmd;
-// 命令行参数
-pub mod args;
-// 方法集合
+/// 命令行可注册命令
 pub mod action;
+/// 命令行参数
+pub mod args;
+/// 命令行实例
+pub mod cmd;
 
 // 测试用例，使用 tests 代替
 // #[cfg(test)]

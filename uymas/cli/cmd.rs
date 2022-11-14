@@ -12,8 +12,7 @@ pub struct ActionApp {
     pub action: Box<dyn Action>,
 }
 
-/// 二进制命令工具
-
+/// 命令行工具，使用实现命令行注册
 pub struct Cmd {
     raw_args: Vec<String>,
     calls: HashMap<String, Box<dyn FnMut(&Args)>>, // 函数集合
@@ -37,10 +36,12 @@ pub fn get_os_args() -> Vec<String> {
     args
 }
 
+/// 来自Os::Args实例化的命令行
 pub trait CmdFromOs {
     fn new() -> Cmd;
 }
 
+/// 来源自定义Args实例化的命令行
 pub trait CmdFromArgs {
     fn new(param: Vec<&str>) -> Cmd;
 }

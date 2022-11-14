@@ -2,7 +2,7 @@ use crate::cmd::get_os_args;
 use std::collections::HashMap;
 use std::fmt::Display;
 
-// 系统参数
+/// 命令行解析后的参数
 #[derive(Debug)]
 pub struct Args {
     // 命令行
