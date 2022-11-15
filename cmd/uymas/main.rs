@@ -2,7 +2,7 @@ extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
-use cli::cmd::{ActionApp, Cmd};
+use cli::cmd::{ActionApp, Cmd, CmdRunOs};
 use cli::VERSION;
 use std::time::Instant;
 
@@ -84,5 +84,7 @@ fn main() {
         repl.run(args);
     });
 
-    cmd.run();
+    // 一下两种方式皆可行
+    CmdRunOs::run(&mut cmd);
+    //cmd.start()
 }

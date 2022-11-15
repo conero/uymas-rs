@@ -44,6 +44,7 @@ pub trait CmdRunOs {
 /// 来源自定义Args实例化的命令行
 pub trait CmdRunArgs {
     fn run(&mut self, param: Vec<&str>);
+    //fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self;
 }
 
 /// 来源自定义Args实例化的命令行
@@ -148,7 +149,7 @@ impl Cmd {
     }
 
     // 命令行执行
-    pub fn run(&mut self) {
+    pub fn start(&mut self) {
         self.parse_args();
         self.try_router();
     }
@@ -208,12 +209,12 @@ impl CmdRunOs for Cmd {
     /// ```
     fn run(&mut self) {
         let args = Args::from_os();
-        self.set_args(args).run();
+        self.set_args(args).start();
     }
 }
 
 impl CmdRunArgs for Cmd {
-    /// 来源与系统的参数
+    /// 来源与`Vec<String>`的参数
     /// ```
     ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
     ///     let mut cmd = Cmd::new();
@@ -221,14 +222,20 @@ impl CmdRunArgs for Cmd {
     /// ```
     fn run(&mut self, param: Vec<&str>) {
         let args = Args::new(param);
-        self.set_args(args).run();
+        self.set_args(args).start();
     }
 }
 
 impl CmdRunStr for Cmd {
+    /// 来源于字符串的参数
+    /// ```
+    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    ///     let mut cmd = Cmd::new();
+    ///     cmd.run(vec!["git", "log", "--stat"]);
+    /// ```
     fn run(&mut self, param: &str) {
         let args = Args::from_str(param);
-        self.set_args(args).run();
+        self.set_args(args).start();
     }
 }
 

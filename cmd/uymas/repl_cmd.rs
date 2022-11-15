@@ -1,7 +1,7 @@
 // 注入式命令
 
 use cli::args::Args;
-use cli::cmd::Cmd;
+use cli::cmd::{Cmd, CmdRunStr};
 use std::io::Write;
 
 pub struct ReplCmd {
@@ -38,6 +38,7 @@ impl ReplCmd {
         self.arg = Some(arg.clone());
         let mut cmd = Cmd::new();
         cmd.empty(App::index);
+        cmd.register("help", App::help);
 
         println!("Repl 应用 :)- ");
         loop {
@@ -51,8 +52,7 @@ impl ReplCmd {
                         println!("Bye, Have a good day! Ha.");
                         break;
                     }
-                    //cmd.run(input_string);
-                    cmd.run();
+                    cmd.run(input_string.as_str());
                 }
                 Err(er) => {
                     println!("读取输入参数错误，{}", er);
