@@ -156,24 +156,30 @@ impl Cmd {
 
     // 尝试执行 router
     // @todo 只能执行一次
+    //pub fn try_router(&self) {
     pub fn try_router(self) {
+        if self.args.is_none() {
+            println!("因无Args参数，Cmd 运行失败");
+            return;
+        }
+        let args = self.args.as_ref().unwrap();
         // 函数式定义参数
         for (v_key, mut v_fn) in self.calls {
-            if self.args.as_ref().unwrap().command == String::from(v_key) {
-                v_fn(self.args.as_ref().unwrap());
+            if args.command == String::from(v_key) {
+                v_fn(args);
                 return;
             }
         }
 
         // 类名定义尝试
         for action in &self.actions {
-            if action.command == self.args.as_ref().unwrap().command {
-                action.action.as_ref().run(self.args.as_ref().unwrap());
+            if action.command == args.command {
+                action.action.as_ref().run(args);
                 return;
             } else {
                 for alias in &action.alias {
-                    if String::from(alias) == self.args.as_ref().unwrap().command {
-                        action.action.as_ref().run(self.args.as_ref().unwrap());
+                    if String::from(alias) == args.command {
+                        action.action.as_ref().run(args);
                         return;
                     }
                 }
@@ -181,14 +187,14 @@ impl Cmd {
         }
 
         // 命令不存在时
-        if !self.action_no_handler.is_none() && !self.args.as_ref().unwrap().command.is_empty() {
-            (self.action_no_handler.unwrap())(self.args.as_ref().unwrap());
+        if !self.action_no_handler.is_none() && !args.command.is_empty() {
+            (self.action_no_handler.unwrap())(args);
             return;
         }
 
         // 默认参数
         if !self.action_default.is_none() {
-            (self.action_default.unwrap())(self.args.as_ref().unwrap());
+            (self.action_default.unwrap())(args);
         } else {
             println!("请您至少为 Cmd 应用注册默认方法");
         }
