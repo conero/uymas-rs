@@ -53,6 +53,13 @@ pub trait CmdRunStr {
 
 // 为结构体添加方法
 impl Cmd {
+    /// 命令行方法调用
+    pub fn new() -> Cmd {
+        Cmd {
+            ..Default::default()
+        }
+    }
+
     /// 通过参数初始化命令行程序
     /// # Examples
     /// ```
@@ -143,8 +150,15 @@ impl Cmd {
     // 命令行执行
     pub fn run(&mut self) {
         self.parse_args();
+        //@todo 需要实现，直接调用 `try_router`
+        //self.try_router();
+    }
+
+    // 尝试执行 router
+    // @todo 只能执行一次
+    pub fn try_router(self) {
         // 函数式定义参数
-        for (v_key, v_fn) in &self.calls {
+        for (v_key, mut v_fn) in self.calls {
             if self.args.as_ref().unwrap().command == String::from(v_key) {
                 v_fn(self.args.as_ref().unwrap());
                 return;
@@ -175,6 +189,8 @@ impl Cmd {
         // 默认参数
         if !self.action_default.is_none() {
             (self.action_default.unwrap())(self.args.as_ref().unwrap());
+        } else {
+            println!("请您至少为 Cmd 应用注册默认方法");
         }
     }
 }

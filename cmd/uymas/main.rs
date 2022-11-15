@@ -2,7 +2,7 @@ extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
-use cli::cmd::{ActionApp, Cmd, CmdRunOs};
+use cli::cmd::{ActionApp, Cmd};
 use cli::VERSION;
 use std::time::Instant;
 
@@ -85,4 +85,5 @@ fn main() {
     });
 
     cmd.run();
+    cmd.try_router();
 }
