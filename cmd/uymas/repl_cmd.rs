@@ -36,6 +36,9 @@ impl ReplCmd {
     //参考: [Rust print消息不换行的方法](https://blog.csdn.net/hustlei/article/details/102511654)
     pub fn run(&mut self, arg: &Args) {
         self.arg = Some(arg.clone());
+        let mut cmd = Cmd::new();
+        cmd.empty(App::index);
+
         println!("Repl 应用 :)- ");
         loop {
             print!("\n$> ");
@@ -48,9 +51,7 @@ impl ReplCmd {
                         println!("Bye, Have a good day! Ha.");
                         break;
                     }
-                    let mut cmd = Cmd::from_str(input_string.as_str());
-                    cmd.empty(App::index);
-                    cmd.register("help", App::help);
+                    //cmd.run(input_string);
                     cmd.run();
                 }
                 Err(er) => {

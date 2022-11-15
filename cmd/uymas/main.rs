@@ -85,5 +85,4 @@ fn main() {
     });
 
     cmd.run();
-    cmd.try_router();
 }

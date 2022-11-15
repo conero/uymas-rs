@@ -150,21 +150,18 @@ impl Cmd {
     // 命令行执行
     pub fn run(&mut self) {
         self.parse_args();
-        //@todo 需要实现，直接调用 `try_router`
-        //self.try_router();
+        self.try_router();
     }
 
-    // 尝试执行 router
-    // @todo 只能执行一次
-    //pub fn try_router(&self) {
-    pub fn try_router(self) {
+    // 尝试路由
+    fn try_router(&mut self) {
         if self.args.is_none() {
             println!("因无Args参数，Cmd 运行失败");
             return;
         }
         let args = self.args.as_ref().unwrap();
         // 函数式定义参数
-        for (v_key, mut v_fn) in self.calls {
+        for (v_key, v_fn) in &mut self.calls {
             if args.command == String::from(v_key) {
                 v_fn(args);
                 return;
@@ -187,14 +184,15 @@ impl Cmd {
         }
 
         // 命令不存在时
-        if !self.action_no_handler.is_none() && !args.command.is_empty() {
-            (self.action_no_handler.unwrap())(args);
-            return;
+        if let Some(action_no_hdl) = &mut self.action_no_handler {
+            if !args.command.is_empty() {
+                action_no_hdl(args);
+            }
         }
 
         // 默认参数
-        if !self.action_default.is_none() {
-            (self.action_default.unwrap())(args);
+        if let Some(action_default) = &mut self.action_default {
+            action_default(args);
         } else {
             println!("请您至少为 Cmd 应用注册默认方法");
         }
@@ -205,7 +203,8 @@ impl CmdRunOs for Cmd {
     /// 来源与系统的参数
     /// ```
     ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
-    ///     let cmd = Cmd::new();
+    ///     let mut cmd = Cmd::new();
+    ///     cmd.run();
     /// ```
     fn run(&mut self) {
         let args = Args::from_os();
@@ -214,6 +213,12 @@ impl CmdRunOs for Cmd {
 }
 
 impl CmdRunArgs for Cmd {
+    /// 来源与系统的参数
+    /// ```
+    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    ///     let mut cmd = Cmd::new();
+    ///     cmd.run(vec!["git", "log", "--stat"]);
+    /// ```
     fn run(&mut self, param: Vec<&str>) {
         let args = Args::new(param);
         self.set_args(args).run();

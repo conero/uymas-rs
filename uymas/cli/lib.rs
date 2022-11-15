@@ -1,5 +1,5 @@
 ///  依赖库版本信息库
-pub const VERSION: &'static str = "2.0.1";
+pub const VERSION: &'static str = "2.0.2";
 /// 项目代码
 pub const PROJECT: &'static str = "learn";
 
