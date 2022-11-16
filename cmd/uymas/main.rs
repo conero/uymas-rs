@@ -2,7 +2,7 @@ extern crate cli;
 
 use cli::action::Action;
 use cli::args::Args;
-use cli::cmd::{ActionApp, Cmd, CmdRunOs};
+use cli::cmd::{ActionApp, Cmd, CmdRunArgs, CmdRunOs};
 use cli::VERSION;
 use std::time::Instant;
 
@@ -22,7 +22,7 @@ impl Action for Version {
 // 绑定信息
 fn action_help(_: &Args) {
     println!("命令如下：");
-    println!("test      参数解析测试");
+    println!("test,t    参数解析测试");
     println!("version   版本号输出");
     println!("repl      交互式命令行测试");
     println!();
@@ -49,7 +49,7 @@ fn main() {
 
     // test
     // move test
-    cmd.register("test", move |args: &Args| {
+    cmd.register_multi(vec!["test", "t"], move |args: &Args| {
         println!("command: {}", args.command);
         println!("sub_command: {}", args.sub_command);
         println!("option: {:?}", args.option);

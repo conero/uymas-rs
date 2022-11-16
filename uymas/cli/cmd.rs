@@ -20,6 +20,7 @@ pub struct Cmd {
     action_default: Option<Box<dyn FnMut(&Args)>>, // 默认执行方法
     action_no_handler: Option<Box<dyn FnMut(&Args)>>, // 不存在的处理方法时
     args: Option<Args>,
+    cmd_alias: Option<HashMap<String, Vec<String>>>, //命令别名类别，函数定义时
 }
 
 /// 将 `env::args` 转化为 Vec<String>
@@ -44,7 +45,9 @@ pub trait CmdRunOs {
 /// 来源自定义Args实例化的命令行
 pub trait CmdRunArgs {
     fn run(&mut self, param: Vec<&str>);
-    //fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self;
+    fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static;
 }
 
 /// 来源自定义Args实例化的命令行
@@ -79,6 +82,7 @@ impl Cmd {
             action_no_handler: None,
             args: None,
             actions: Vec::new(),
+            cmd_alias: None,
         };
         app.parse_args();
         return app;
@@ -168,6 +172,27 @@ impl Cmd {
                 return;
             }
         }
+        // 函数式定义参数（别名）
+        if let Some(cmd_alias) = &self.cmd_alias {
+            for (ca_key, ca_val) in cmd_alias {
+                let mut is_match = args.command == String::from(ca_key.as_str());
+                if !is_match {
+                    for cv in ca_val {
+                        if args.command == String::from(cv.as_str()) {
+                            is_match = true;
+                            break;
+                        }
+                    }
+                }
+                if is_match {
+                    if let Some(v_fn) = self.calls.get_mut(ca_key.as_str()) {
+                        //(v_fn)(args);
+                        v_fn(args);
+                        return;
+                    }
+                }
+            }
+        }
 
         // 类名定义尝试
         for action in &self.actions {
@@ -198,6 +223,35 @@ impl Cmd {
             println!("请您至少为 Cmd 应用注册默认方法");
         }
     }
+
+    // 多删除注册
+    fn try_register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        let v_len = names.len();
+        if v_len < 1 {
+            return self;
+        }
+        let key = names[0];
+        self.register(key, action);
+        let mut cmd_alias: HashMap<String, Vec<String>> = HashMap::new();
+        if let Some(v_cmd_alias) = &self.cmd_alias {
+            cmd_alias = v_cmd_alias.clone();
+        }
+
+        // Vec<&str> -> Vec<String>
+        let mut values: Vec<String> = Vec::from_iter(names.iter().map(|x| String::from(*x)));
+        if let Some(old_val) = cmd_alias.get(key) {
+            for old in old_val {
+                values.push(old.to_string())
+            }
+        }
+
+        cmd_alias.insert(String::from(key), values);
+        self.cmd_alias = Some(cmd_alias);
+        self
+    }
 }
 
 impl CmdRunOs for Cmd {
@@ -224,6 +278,14 @@ impl CmdRunArgs for Cmd {
         let args = Args::new(param);
         self.set_args(args).start();
     }
+
+    /// 多命令注册
+    fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        self.try_register_multi(names, action)
+    }
 }
 
 impl CmdRunStr for Cmd {
@@ -249,6 +311,7 @@ impl Default for Cmd {
             action_default: None,
             action_no_handler: None,
             args: None,
+            cmd_alias: None,
         }
     }
 }
