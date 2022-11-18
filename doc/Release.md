@@ -15,7 +15,9 @@
 - **cli**
   - feat(Cmd): 新增方法 `from_str` 用于实现 `&str` 初始化 `Cmd `
   - feat(Cmd): 实现 `Default` trait
-  - feat(Cmd): 尝试调整方法结构，是`Cmd::new` 后可多次 `Cmd.run`。(*<span style="color:red">程序异常</span>*)
+  - feat(Cmd): 尝试调整方法结构，是`Cmd::new` 后可多次 `Cmd.run`。
+  - feat(CmdRunString): 新增trait 使用实现 `Vec<String>` 方法的请求
+  - break(Cmd): 删除方法 `from` 和 `from_str` 方法。改变方法基础为 `new -> run`
 - **uymas**
   - pref: `repl`添加 help, 以及默认命令
 

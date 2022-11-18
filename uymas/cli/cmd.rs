@@ -50,9 +50,17 @@ pub trait CmdRunArgs {
         F: FnMut(&Args) + 'static;
 }
 
-/// 来源自定义Args实例化的命令行
+/// 来源自定义 `str` 转化为 Args实例化的命令行
 pub trait CmdRunStr {
     fn run(&mut self, param: &str);
+}
+
+/// 来源自定义 `String` 转化为 Args实例化的命令行
+pub trait CmdRunString {
+    fn run(&mut self, param: Vec<String>);
+    fn register_multi<F>(&mut self, names: Vec<String>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static;
 }
 
 // 为结构体添加方法
@@ -62,40 +70,6 @@ impl Cmd {
         Cmd {
             ..Default::default()
         }
-    }
-
-    /// 通过参数初始化命令行程序
-    /// # Examples
-    /// ```
-    ///     use uymas_cli::cmd::Cmd;
-    ///     let app = Cmd::from(vec!["log", "--stat"]);
-    /// ```
-    pub fn from(param: Vec<&str>) -> Cmd {
-        let mut args: Vec<String> = Vec::new();
-        for arg in param {
-            args.push(String::from(arg));
-        }
-        let mut app = Cmd {
-            raw_args: args,
-            calls: HashMap::new(),
-            action_default: None,
-            action_no_handler: None,
-            args: None,
-            actions: Vec::new(),
-            cmd_alias: None,
-        };
-        app.parse_args();
-        return app;
-    }
-
-    /// 通过 `str` 初始化 Cmd
-    pub fn from_str(param: &str) -> Cmd {
-        let args = Args::from_str(param);
-        let mut cmd = Cmd {
-            ..Default::default()
-        };
-        cmd.args = Some(args);
-        cmd
     }
 
     // 获取操作系统命令
@@ -186,7 +160,6 @@ impl Cmd {
                 }
                 if is_match {
                     if let Some(v_fn) = self.calls.get_mut(ca_key.as_str()) {
-                        //(v_fn)(args);
                         v_fn(args);
                         return;
                     }
@@ -298,6 +271,22 @@ impl CmdRunStr for Cmd {
     fn run(&mut self, param: &str) {
         let args = Args::from_str(param);
         self.set_args(args).start();
+    }
+}
+
+impl CmdRunString for Cmd {
+    fn run(&mut self, param: Vec<String>) {
+        let args = Args::new(param);
+        self.set_args(args).start();
+    }
+
+    fn register_multi<F>(&mut self, names: Vec<String>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        // Vec<&str> -> Vec<String>
+        let values: Vec<&str> = Vec::from_iter(names.iter().map(|x| x.as_str()));
+        self.try_register_multi(values, action)
     }
 }
 
