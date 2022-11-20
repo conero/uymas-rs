@@ -35,6 +35,31 @@ pub struct ActionApp {
 /// // 方法指定
 /// cmd.start();
 /// ```
+///
+/// 使用 run 执行命令行，支持输入参数
+/// ```
+/// use uymas_cli::cmd::{Cmd, CmdRunOs};
+/// let mut cmd = Cmd::new();
+/// cmd.run();
+/// ```
+/// 支持 Vec<String> 参数
+/// ```
+/// use uymas_cli::cmd::{Cmd, CmdRunString};
+/// let mut cmd = Cmd::new();
+/// cmd.run(vec!["git".to_string(), "status".to_string()]);
+/// ```
+/// 支持 &str 参数
+/// ```
+/// use uymas_cli::cmd::{Cmd, CmdRunStr};
+/// let mut cmd = Cmd::new();
+/// cmd.run("git status");
+/// ```
+/// 支持 Vec<&str> 参数
+/// ```
+/// use uymas_cli::cmd::{Cmd, CmdRunArgs};
+/// let mut cmd = Cmd::new();
+/// cmd.run(vec!["git", "status"]);
+/// ```
 pub struct Cmd {
     raw_args: Vec<String>,                            //原始输入参数
     calls: HashMap<String, Box<dyn FnMut(&Args)>>,    // （注册的）函数集合
