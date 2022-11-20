@@ -13,14 +13,36 @@ pub struct ActionApp {
 }
 
 /// 命令行工具，使用实现命令行注册
+///
+///
+/// # Examples
+/// 默认使用 `start` 指定命令行程序，
+/// ```
+/// use uymas_cli::args::Args;
+/// use uymas_cli::cmd::Cmd;
+/// let mut cmd = Cmd::new();
+///
+/// // 默认调用
+/// cmd.empty(|_: &Args|{
+///     println!("Hello World, Cli.");
+/// });
+///
+/// // 注册方法
+/// cmd.register("version", |_: &Args|{
+///     println!("v1.0.0");
+/// });
+///
+/// // 方法指定
+/// cmd.start();
+/// ```
 pub struct Cmd {
-    raw_args: Vec<String>,
-    calls: HashMap<String, Box<dyn FnMut(&Args)>>, // 函数集合
-    actions: Vec<ActionApp>,                       //方法集合
-    action_default: Option<Box<dyn FnMut(&Args)>>, // 默认执行方法
+    raw_args: Vec<String>,                            //原始输入参数
+    calls: HashMap<String, Box<dyn FnMut(&Args)>>,    // （注册的）函数集合
+    actions: Vec<ActionApp>,                          // 方法集合
+    action_default: Option<Box<dyn FnMut(&Args)>>,    // 默认执行方法
     action_no_handler: Option<Box<dyn FnMut(&Args)>>, // 不存在的处理方法时
     args: Option<Args>,
-    cmd_alias: Option<HashMap<String, Vec<String>>>, //命令别名类别，函数定义时
+    cmd_alias: Option<HashMap<String, Vec<String>>>, // 命令别名类别，函数定义时
 }
 
 /// 将 `env::args` 转化为 Vec<String>
@@ -44,7 +66,10 @@ pub trait CmdRunOs {
 
 /// 来源自定义Args实例化的命令行
 pub trait CmdRunArgs {
+    /// 运行命令行应用
     fn run(&mut self, param: Vec<&str>);
+
+    /// 多个命令注册命令
     fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
     where
         F: FnMut(&Args) + 'static;
@@ -57,7 +82,10 @@ pub trait CmdRunStr {
 
 /// 来源自定义 `String` 转化为 Args实例化的命令行
 pub trait CmdRunString {
+    /// 运行命令行应用
     fn run(&mut self, param: Vec<String>);
+
+    /// 多个命令注册命令
     fn register_multi<F>(&mut self, names: Vec<String>, action: F) -> &mut Self
     where
         F: FnMut(&Args) + 'static;
@@ -94,7 +122,7 @@ impl Cmd {
         self
     }
 
-    // 方法注册
+    // 命令方法注册
     pub fn register<F>(&mut self, name: &str, action: F) -> &mut Cmd
     where
         F: FnMut(&Args) + 'static,
@@ -103,12 +131,13 @@ impl Cmd {
         self
     }
 
+    /// app 类型应用注册
     pub fn register_action(&mut self, app: Box<ActionApp>) -> &mut Cmd {
         self.actions.push(*app);
         self
     }
 
-    // 默认方法
+    /// 命令行默认执行方法
     pub fn empty<F>(&mut self, action: F) -> &mut Cmd
     where
         F: FnMut(&Args) + 'static,
@@ -117,7 +146,7 @@ impl Cmd {
         self
     }
 
-    // 不存时处理
+    /// 处理应用不匹配时的调用
     pub fn un_found<F>(&mut self, action: F) -> &mut Cmd
     where
         F: FnMut(&Args) + 'static,
@@ -126,13 +155,13 @@ impl Cmd {
         self
     }
 
-    // 命令行执行
+    /// 命令行默认调整
     pub fn start(&mut self) {
         self.parse_args();
         self.try_router();
     }
 
-    // 尝试路由
+    // 尝试执行路由
     fn try_router(&mut self) {
         if self.args.is_none() {
             println!("因无Args参数，Cmd 运行失败");
@@ -197,7 +226,7 @@ impl Cmd {
         }
     }
 
-    // 多删除注册
+    // 多命令注册
     fn try_register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
     where
         F: FnMut(&Args) + 'static,
@@ -230,9 +259,9 @@ impl Cmd {
 impl CmdRunOs for Cmd {
     /// 来源与系统的参数
     /// ```
-    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
-    ///     let mut cmd = Cmd::new();
-    ///     cmd.run();
+    /// use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    /// let mut cmd = Cmd::new();
+    /// cmd.run();
     /// ```
     fn run(&mut self) {
         let args = Args::from_os();
@@ -243,9 +272,9 @@ impl CmdRunOs for Cmd {
 impl CmdRunArgs for Cmd {
     /// 来源与`Vec<String>`的参数
     /// ```
-    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
-    ///     let mut cmd = Cmd::new();
-    ///     cmd.run(vec!["git", "log", "--stat"]);
+    /// use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    /// let mut cmd = Cmd::new();
+    /// cmd.run(vec!["git", "log", "--stat"]);
     /// ```
     fn run(&mut self, param: Vec<&str>) {
         let args = Args::new(param);
@@ -253,6 +282,14 @@ impl CmdRunArgs for Cmd {
     }
 
     /// 多命令注册
+    /// ```
+    /// use uymas_cli::args::Args;
+    /// use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    ///
+    /// let mut cmd = Cmd::new();
+    /// cmd.register_multi(vec!["version", "v"], |_: &Args| println!("v1.0.0"));
+    /// cmd.run(vec!["git", "log", "--stat"]);
+    /// ```
     fn register_multi<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
     where
         F: FnMut(&Args) + 'static,
@@ -264,9 +301,9 @@ impl CmdRunArgs for Cmd {
 impl CmdRunStr for Cmd {
     /// 来源于字符串的参数
     /// ```
-    ///     use uymas_cli::cmd::{Cmd, CmdRunArgs};
-    ///     let mut cmd = Cmd::new();
-    ///     cmd.run(vec!["git", "log", "--stat"]);
+    /// use uymas_cli::cmd::{Cmd, CmdRunArgs};
+    /// let mut cmd = Cmd::new();
+    /// cmd.run(vec!["git", "log", "--stat"]);
     /// ```
     fn run(&mut self, param: &str) {
         let args = Args::from_str(param);
@@ -290,7 +327,7 @@ impl CmdRunString for Cmd {
     }
 }
 
-// 默认类型
+/// 命令行默认执行方法
 impl Default for Cmd {
     fn default() -> Self {
         Cmd {

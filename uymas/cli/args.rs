@@ -117,11 +117,11 @@ impl Args {
 
     /// 实例化函数，解析桉树为命令行。`Cmd.data` 解析参照 url.Values 解析规则，即默认为 Vec<String>
     /// ```
-    ///  // 解析 "rustc --version" 命令
-    /// use uymas_cli::cmd::{Cmd, CmdRunArgs};
-    /// let cmd = Cmd::new(vec!["rustc", "--version"]);
+    /// // 解析 "rustc --version" 命令
+    /// use uymas_cli::cmd::{Cmd, CmdRunOs, CmdRunStr};
+    /// let cmd = Cmd::new();
+    /// cmd.run(vec!["rustc", "--version"]);
     /// ```
-    /// @todo 将 option 处理中重复的代码提取为方法执行以复用代码
     pub fn from_args(args: &Vec<String>) -> Args {
         // 字段信息
         let mut command = String::new(); // 命令
@@ -323,8 +323,6 @@ where
     }
     value
 }
-
-// impl Copy for Args {}
 
 impl Clone for Args {
     fn clone(&self) -> Self {
