@@ -10,6 +10,10 @@ pub mod args;
 /// 命令行实例
 pub mod cmd;
 
+/// 命令程序映射
+#[cfg(feature = "cli-derive")]
+pub mod reflect;
+
 // 测试用例，使用 tests 代替
 // #[cfg(test)]
 // mod test_args;
