@@ -3,6 +3,7 @@
 members = [
     "uymas/cli",
     "cmd/uymas",
+    "examples/*",
 ]
 
 
