@@ -17,6 +17,8 @@
 ```shell
 # 生成文档
 cargo doc --open
+# 生成全部文档
+cargo doc --all-features --all
 
 # 格式化
 cargo fmt

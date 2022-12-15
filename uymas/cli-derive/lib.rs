@@ -1,8 +1,24 @@
 use proc_macro::TokenStream;
+use quote::quote;
+use syn;
 
 #[proc_macro_derive(CliApp)]
 pub fn cli_app(input: TokenStream) -> TokenStream {
-    input
+    let ast = syn::parse(input).unwrap();
+    impl_run_macro(&ast)
+}
+
+// 生成 run
+fn impl_run_macro(ast: &syn::DeriveInput) -> TokenStream {
+    let name = &ast.ident;
+    let gen = quote! {
+        impl CliApp for #name {
+            fn run() {
+                println!("Hello, Macro! My name is {}!", stringify!(#name));
+            }
+        }
+    };
+    gen.into()
 }
 
 #[proc_macro_attribute]

@@ -18,3 +18,4 @@ path = "lib.rs"
 cli-derive = []
 
 [dependencies]
+cli-derive = { version="0.1.0", path = "../../uymas/cli-derive"}
