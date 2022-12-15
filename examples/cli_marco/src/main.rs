@@ -6,12 +6,6 @@ use cli::CliApp;
 struct MarcoApp {}
 
 fn main() {
-    let mut app = Cmd::new();
-
-    // 默认index
-    app.empty(|_| {
-        MarcoApp::run();
-    });
-
+    let app = MarcoApp {};
     app.run();
 }

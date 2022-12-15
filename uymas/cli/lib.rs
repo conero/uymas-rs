@@ -10,10 +10,24 @@ pub mod args;
 /// 命令行实例
 pub mod cmd;
 
-/// `Experimental` 实验性
+/// `Experimental` 实验性特性。
+/// 用于定义二进制应用
 #[cfg(feature = "cli-derive")]
 pub trait CliApp {
-    fn run(); // 程序
+    /// 运行命令行程序
+    /// ```
+    /// use uymas_cli::CliApp;
+    /// use uymas_cli::derive::CliApp;
+    ///
+    /// #[derive(CliApp)]
+    /// struct MyApp;
+    ///
+    /// fn main(){
+    ///     let app = MarcoApp{};
+    ///     app.run();
+    /// }
+    /// ```
+    fn run(&self);
 }
 
 /// 引入 `cli-derive` 实现调用过程宏 `Experimental`
