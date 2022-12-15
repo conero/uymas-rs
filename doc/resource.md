@@ -53,6 +53,18 @@ cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
 
 
 
+### Learning
+
+#### proc-macro
+
+过程宏只能单独导出含宏的代码，不可出现其他的。
+
+```
+error: `proc-macro` crate types currently cannot export any items other than functions tagged with `#[proc_macro]`, `#[proc_macro_derive]`, or `#[proc_macro_attribute]`
+```
+
+
+
 
 
 

@@ -12,8 +12,6 @@ homepage = "https://github.com/conero/uymas-rs"
 
 [lib]
 path = "lib.rs"
-# 过程宏
-proc-macro = true
 
 [features]
 # 命令行驱动

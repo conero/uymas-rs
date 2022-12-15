@@ -2,6 +2,7 @@
 #resolver = "2"
 members = [
     "uymas/cli",
+    "uymas/cli-derive",
     "cmd/uymas",
     "examples/*",
 ]
