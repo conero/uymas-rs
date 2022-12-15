@@ -7,9 +7,11 @@ struct MarcoApp {}
 
 fn main() {
     let mut app = Cmd::new();
+
+    // 默认index
     app.empty(|_| {
         MarcoApp::run();
-        println!("Hello, world!");
     });
+
     app.run();
 }
