@@ -10,11 +10,12 @@ pub mod args;
 /// 命令行实例
 pub mod cmd;
 
+/// `Experimental` 实验性
 #[cfg(feature = "cli-derive")]
 pub trait CliApp {
     fn run(); // 程序
 }
 
-/// 引入 `cli-derive` 实现调用过程宏
+/// 引入 `cli-derive` 实现调用过程宏 `Experimental`
 #[cfg(feature = "cli-derive")]
 pub use cli_derive as derive;
