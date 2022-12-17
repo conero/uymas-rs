@@ -24,10 +24,25 @@ fn impl_run_macro(ast: &syn::DeriveInput) -> TokenStream {
 
 #[proc_macro_attribute]
 pub fn cli_command(attr: TokenStream, item: TokenStream) -> TokenStream {
-    item
+    let x = format!(
+        r#"
+        pub fn dummy() {{
+            println!("entering");
+            println!("args tokens: {{}}", {args});
+            println!("input tokens: {{}}", {input});
+            println!("exiting");
+        }}
+    "#,
+        args = attr.into_iter().count(),
+        input = item.into_iter().count(),
+    );
+
+    x.parse().expect("Generated invalid tokens")
 }
 
 #[proc_macro_attribute]
 pub fn cli_action(attr: TokenStream, item: TokenStream) -> TokenStream {
-    item
+    println!("attr: {:?}", attr);
+    println!("item: {:?}", item);
+    TokenStream::new()
 }

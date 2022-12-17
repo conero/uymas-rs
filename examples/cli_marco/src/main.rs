@@ -17,5 +17,7 @@ fn main() {
     let app = MarcoApp {};
     app.run();
     // 指定 help
-    app.help();
+    // app.help();
+    //dummy();
+    MarcoApp::dummy();
 }
