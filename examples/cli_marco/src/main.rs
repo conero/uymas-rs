@@ -6,8 +6,9 @@ use cli::CliApp;
 struct MarcoApp {}
 
 impl MarcoApp {
+    // 测试程序
     #[cli_command(Help, "help", "h")]
-    pub fn help(&self) {
+    pub fn help() {
         println!("help   命令");
         // 测试代码
     }
@@ -19,5 +20,5 @@ fn main() {
     // 指定 help
     // app.help();
     //dummy();
-    MarcoApp::dummy();
+    app.dummy();
 }
