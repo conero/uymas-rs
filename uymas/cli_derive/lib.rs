@@ -24,10 +24,20 @@ fn impl_run_macro(ast: &syn::DeriveInput) -> TokenStream {
 
 #[proc_macro_attribute]
 pub fn cli_command(attr: TokenStream, item: TokenStream) -> TokenStream {
+    let attr_dbg = format!("{}", attr)
+        .replace("\"", "\\\"")
+        .replace("{", "{{")
+        .replace("}", "}}");
+    let item_dbg = format!("{}", item)
+        .replace("\"", "\\\"")
+        .replace("{", "{{")
+        .replace("}", "}}");
     let x = format!(
         r#"
         pub fn dummy() {{
             println!("entering");
+            println!("{attr_dbg}");
+            println!("{item_dbg}");
             println!("args tokens: {{}}", {args});
             println!("input tokens: {{}}", {input});
             println!("exiting");

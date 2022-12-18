@@ -6,7 +6,7 @@ use cli::CliApp;
 struct MarcoApp {}
 
 impl MarcoApp {
-    #[cli_command(Help, "help")]
+    #[cli_command(Help, "help", "h")]
     pub fn help(&self) {
         println!("help   命令");
         // 测试代码
