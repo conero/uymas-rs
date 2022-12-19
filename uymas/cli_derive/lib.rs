@@ -27,6 +27,7 @@ pub fn cli_command(attr: TokenStream, input: TokenStream) -> TokenStream {
     let ipt_parse: syn::ItemFn = syn::parse(input.clone()).expect("Input sync parse error");
     let sig = ipt_parse.sig;
     let fn_name = sig.ident.clone().to_string();
+    let name = &sig.ident;
 
     let attr_dbg = format!("{}", attr);
     let item_dbg = format!("{}", input);
@@ -34,7 +35,7 @@ pub fn cli_command(attr: TokenStream, input: TokenStream) -> TokenStream {
     let args = attr.into_iter().count();
     let input = input.into_iter().count();
     let gen = quote! {
-        pub fn dummy(&self) {
+        pub fn #name(&self) {
             println!("entering");
             println!("attr_dbg: {}", #attr_dbg);
             println!("item_dbg: {}", #item_dbg);

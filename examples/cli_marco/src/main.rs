@@ -20,5 +20,5 @@ fn main() {
     // 指定 help
     // app.help();
     //dummy();
-    app.dummy();
+    app.help();
 }
