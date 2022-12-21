@@ -15,7 +15,12 @@ fn impl_run_macro(ast: &DeriveInput) -> TokenStream {
     let gen = quote! {
         impl CliApp for #name {
             fn run(&self) {
-                println!("Hello, Macro! My name is {}!", stringify!(#name));
+                let mut cmd = crate::Cmd::new();
+                // 默认方法
+                cmd.empty(|_args: &crate::Args|{
+                    println!("Hello, Macro! My name is {}!", stringify!(#name));
+                });
+                cmd.run();
             }
         }
     };
