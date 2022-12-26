@@ -2,6 +2,10 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::DeriveInput;
 
+/// **注意** `derive` 属性尝试实现代码自动生成，但由于资料以及文档方面欠缺。其暂时为实验性的，不可用于生产。
+/// 意识着代码还需更多的知识储备。
+///
+
 /// 定义命令行结构体
 #[proc_macro_derive(CliApp)]
 pub fn cli_app(input: TokenStream) -> TokenStream {
