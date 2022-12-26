@@ -17,6 +17,8 @@
 ```shell
 # 生成文档
 cargo doc --open
+# 生成全部文档
+cargo doc --all-features --all
 
 # 格式化
 cargo fmt
@@ -50,6 +52,18 @@ cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
 - master           主分支(未定分支)
 - try                   开发分支（需保证可正常编译）
 - try-choke       try 开发分支引起的错误（可能编译不过）
+
+
+
+### Learning
+
+#### proc-macro
+
+过程宏只能单独导出含宏的代码，不可出现其他的。
+
+```
+error: `proc-macro` crate types currently cannot export any items other than functions tagged with `#[proc_macro]`, `#[proc_macro_derive]`, or `#[proc_macro_attribute]`
+```
 
 
 

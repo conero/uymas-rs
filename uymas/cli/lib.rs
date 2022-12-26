@@ -1,7 +1,7 @@
 ///  依赖库版本信息库
 pub const VERSION: &'static str = "2.0.2";
 /// 项目代码
-pub const PROJECT: &'static str = "learn";
+pub const PROJECT: &'static str = "uymas";
 
 /// 命令行可注册命令
 pub mod action;
