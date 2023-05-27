@@ -42,7 +42,7 @@ pub struct ActionApp {
 /// let mut cmd = Cmd::new();
 /// cmd.run();
 /// ```
-/// 支持 Vec<String> 参数
+/// 支持 `Vec<String>` 参数
 /// ```
 /// use uymas_cli::cmd::{Cmd, CmdRunString};
 /// let mut cmd = Cmd::new();
@@ -70,7 +70,7 @@ pub struct Cmd {
     cmd_alias: Option<HashMap<String, Vec<String>>>, // 命令别名类别，函数定义时
 }
 
-/// 将 `env::args` 转化为 Vec<String>
+/// 将 `env::args` 转化为 `Vec<String>`
 pub fn get_os_args() -> Vec<String> {
     let mut args: Vec<String> = Vec::new();
     let mut idx = 0;

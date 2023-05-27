@@ -1,6 +1,8 @@
 use crate::cmd::get_os_args;
 use std::collections::HashMap;
+use std::env;
 use std::fmt::Display;
+use std::path::Path;
 
 /// 命令行解析后的参数
 #[derive(Debug)]
@@ -115,7 +117,7 @@ impl Args {
         (new_data, new_value)
     }
 
-    /// 实例化函数，解析桉树为命令行。`Cmd.data` 解析参照 url.Values 解析规则，即默认为 Vec<String>
+    /// 实例化函数，解析桉树为命令行。`Cmd.data` 解析参照 url.Values 解析规则，即默认为 `Vec<String>`
     /// ```
     /// // 解析 "rustc --version" 命令
     /// use uymas_cli::cmd::{Cmd, CmdRunOs, CmdRunStr};
@@ -333,5 +335,37 @@ impl Clone for Args {
             data: self.data.clone(),
             raw: self.raw.clone(),
         }
+    }
+}
+
+/// 获取二进制项目(当前应用)所在目录
+/// ### example
+/// ```
+///  // ~/uymas.exe
+///  use uymas_cli::args::project_path;
+///  println!("{}", project_path("logs/2023/05/27.log"));
+///  // 输入: `~/logs/2023/05/27.log`
+/// ```
+pub fn project_path<P: AsRef<Path>>(joins: P) -> String {
+    let path = base_bin_path(joins);
+    path.replace("\\", "/")
+}
+
+// 依赖二进制所在目录
+fn base_bin_path<P: AsRef<Path>>(joins: P) -> String {
+    let mut exec_path = String::new();
+    for arg in env::args() {
+        exec_path = arg;
+        break;
+    }
+
+    let pth = Path::new(&exec_path);
+    if let Some(parent) = pth.parent() {
+        let pth = parent.join(joins);
+        format!("{}", pth.to_str().unwrap())
+    } else {
+        let pth = Path::new("");
+        let pth = pth.join(joins);
+        format!("{}", pth.to_str().unwrap())
     }
 }
