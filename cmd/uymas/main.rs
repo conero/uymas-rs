@@ -3,7 +3,7 @@ extern crate cli;
 use cli::action::Action;
 use cli::args::Args;
 use cli::cmd::{ActionApp, Cmd, CmdRunArgs, CmdRunOs};
-use cli::VERSION;
+use cli::{args, VERSION};
 use std::time::Instant;
 
 // 注入式类型
@@ -57,6 +57,7 @@ fn main() {
         println!("raw: {:?}", args.raw);
         println!();
         println!("用时：{} 毫秒(ms).", now.elapsed().as_micros());
+        println!("应用所在目录：{}", args::get_exec_dir());
     });
 
     // help
@@ -72,7 +73,7 @@ fn main() {
             action_help(args);
             return;
         }
-        println!("$ uymas [command] [option]");
+        println!("$ {} [command] [option]", args::get_exec_name());
         println!("uymas 命令行工具");
         println!("uymas_cli 目标是创建快速依赖最小的命令行库");
         println!("v{}", VERSION);

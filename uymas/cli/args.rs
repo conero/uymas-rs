@@ -403,23 +403,65 @@ pub fn project_path<P: AsRef<Path>>(joins: P) -> String {
     path.replace("\\", "/")
 }
 
-// 依赖二进制所在目录
-fn base_bin_path<P: AsRef<Path>>(joins: P) -> String {
+/// 获取当前正在执行二进制所在路径
+pub fn get_exec_path() -> String {
     let mut exec_path = String::new();
     for arg in env::args() {
         exec_path = arg;
         break;
     }
 
+    exec_path.replace("\\", "/")
+}
+
+/// 获取当前正在执行二进制所在目录
+pub fn get_exec_dir() -> String {
+    let exec_path = get_exec_path();
     let pth = Path::new(&exec_path);
+
     if let Some(parent) = pth.parent() {
-        let pth = parent.join(joins);
-        format!("{}", pth.to_str().unwrap())
+        format!("{}", parent.to_str().unwrap())
     } else {
-        let pth = Path::new("");
-        let pth = pth.join(joins);
-        format!("{}", pth.to_str().unwrap())
+        String::new()
     }
+}
+
+/// 获取当前正在执行二进制名称
+pub fn get_exec_name() -> String {
+    let exec_path = get_exec_path();
+    let pth = Path::new(&exec_path);
+
+    if let Some(vfl) = pth.file_name() {
+        format!("{}", vfl.to_str().unwrap())
+    } else {
+        String::new()
+    }
+}
+
+/// 根据当前正在执行二进制所在吗，目录进行 split
+pub fn root_path_split() -> (String, String) {
+    let exec_path = get_exec_path();
+    let pth = Path::new(&exec_path);
+
+    let file_name = if let Some(vfl) = pth.file_name() {
+        format!("{}", vfl.to_str().unwrap())
+    } else {
+        String::new()
+    };
+
+    if let Some(parent) = pth.parent() {
+        (format!("{}", parent.to_str().unwrap()), file_name)
+    } else {
+        (String::new(), file_name)
+    }
+}
+
+// 依赖二进制所在目录
+fn base_bin_path<P: AsRef<Path>>(joins: P) -> String {
+    let basedir = root_path_split();
+    let pth = Path::new(basedir.0.as_str());
+    let pth = pth.join(joins);
+    format!("{}", pth.to_str().unwrap())
 }
 
 /// 参数解析

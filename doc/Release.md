@@ -10,7 +10,7 @@
 
 
 
-### v2.1.0/dev
+### v2.1.0/2023-06-08
 
 - **cli**
   - feat(Cmd): 新增方法 `from_str` 用于实现 `&str` 初始化 `Cmd `
@@ -20,7 +20,7 @@
   - feat(args::Args): 新增基于范类的 `get_option` 方法获取值
   - feat(args::Args): 新增基于范类的 `get_option_vec` 方法获取参数列表
   - break(Cmd): 删除方法 `from` 和 `from_str` 方法。改变方法基础为 `new -> run`
-  - feat: 新增方法 `project_path` 用于实现二进制所在目录的文件路径
+  - feat: 新增方法 `project_path、get_exec_dir、get_exec_name、root_path_split、` 用于实现二进制所在目录的文件路径
 - **uymas**
   - pref: `repl`添加 help, 以及默认命令
 
