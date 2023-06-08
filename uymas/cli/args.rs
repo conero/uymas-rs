@@ -53,14 +53,17 @@ impl Args {
     }
 
     /// 获取 `Option<String>` 类型
-    #[deprecated(since = "2.0.1", note = "use the `get_option_string` instead")]
+    #[deprecated(
+        since = "2.0.1",
+        note = "use the `get_option_string` instead, v2.2.x will remove"
+    )]
     pub fn get_value_string_option(&self, keys: Vec<&str>) -> Option<String> {
         self.get_option_string(keys)
     }
 
     /// 获取 i32 数据类型
     pub fn get_value_i32(&self, keys: Vec<&str>) -> i32 {
-        if let Some(v) = self.get_option_isize(keys) {
+        if let Some(v) = self.get_option::<i32>(keys) {
             return v as i32;
         }
         0
@@ -68,7 +71,7 @@ impl Args {
 
     /// 获取 bool 类型数据
     pub fn get_value_bool(&self, keys: Vec<&str>) -> bool {
-        return if let Some(v) = self.get_option_bool(keys) {
+        return if let Some(v) = self.get_option::<bool>(keys) {
             v
         } else {
             false
@@ -77,7 +80,7 @@ impl Args {
 
     /// 获取 bool 类型数据
     pub fn get_value_f64(&self, keys: Vec<&str>) -> f64 {
-        return if let Some(v) = self.get_option_f64(keys) {
+        return if let Some(v) = self.get_option(keys) {
             v
         } else {
             0.0
@@ -236,16 +239,28 @@ impl Args {
     }
 
     /// 获取 i32 参数
+    #[deprecated(
+        since = "2.1.0",
+        note = "use the `get_option` instead, v2.2.x will remove"
+    )]
     pub fn get_option_isize(&self, keys: Vec<&str>) -> Option<isize> {
         self.get_option(keys)
     }
 
     /// 获取 bool 类型
+    #[deprecated(
+        since = "2.1.0",
+        note = "use the `get_option` instead, v2.2.x will remove"
+    )]
     pub fn get_option_bool(&self, keys: Vec<&str>) -> Option<bool> {
         self.get_option(keys)
     }
 
     /// 获取 f64 类型
+    #[deprecated(
+        since = "2.1.0",
+        note = "use the `get_option` instead, v2.2.x will remove"
+    )]
     pub fn get_option_f64(&self, keys: Vec<&str>) -> Option<f64> {
         self.get_option(keys)
     }
@@ -334,6 +349,47 @@ impl Clone for Args {
     }
 }
 
+/// 可配置的 option解析
+pub trait ArgsOptionParseDefine {
+    fn get_option_vec<T>(&self, keys: Vec<&str>, split: &str) -> Option<Vec<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Debug;
+}
+
+impl ArgsOptionParseDefine for Args {
+    fn get_option_vec<T>(&self, keys: Vec<&str>, split: &str) -> Option<Vec<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Debug,
+    {
+        if let Some(v_str) = self.get_option_string(keys) {
+            return parse_option_vec(v_str.clone(), split);
+        }
+        None
+    }
+}
+
+pub trait ArgsOptionParse {
+    fn get_option_vec<T>(&self, keys: Vec<&str>) -> Option<Vec<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Debug;
+}
+
+impl ArgsOptionParse for Args {
+    fn get_option_vec<T>(&self, keys: Vec<&str>) -> Option<Vec<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Debug,
+    {
+        if let Some(v_str) = self.get_option_string(keys) {
+            return parse_option_vec(v_str.clone(), ",");
+        }
+        None
+    }
+}
+
 /// 获取二进制项目(当前应用)所在目录
 /// ### example
 /// ```
@@ -364,4 +420,26 @@ fn base_bin_path<P: AsRef<Path>>(joins: P) -> String {
         let pth = pth.join(joins);
         format!("{}", pth.to_str().unwrap())
     }
+}
+
+/// 参数解析
+fn parse_option_vec<T>(value: String, split: &str) -> Option<Vec<T>>
+where
+    T: FromStr,
+    <T as FromStr>::Err: Debug,
+{
+    let vec_list: Vec<&str> = value.split(split).collect();
+    let mut parse = Vec::new();
+    for vs in vec_list {
+        let rslt_or_err = String::from(vs).parse::<T>();
+        if rslt_or_err.is_ok() {
+            parse.push(rslt_or_err.unwrap());
+        }
+    }
+
+    if parse.len() == 0 {
+        return None;
+    }
+
+    return Some(parse);
 }
