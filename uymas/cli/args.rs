@@ -1,8 +1,9 @@
 use crate::cmd::get_os_args;
 use std::collections::HashMap;
 use std::env;
-use std::fmt::Display;
+use std::fmt::{Debug, Display};
 use std::path::Path;
+use std::str::FromStr;
 
 /// 命令行解析后的参数
 #[derive(Debug)]
@@ -236,35 +237,30 @@ impl Args {
 
     /// 获取 i32 参数
     pub fn get_option_isize(&self, keys: Vec<&str>) -> Option<isize> {
-        if let Some(v) = self.get_option_string(keys) {
-            match v.parse::<isize>() {
-                Ok(value) => return Some(value),
-                Err(_) => (),
-            };
-        }
-        None
+        self.get_option(keys)
     }
 
     /// 获取 bool 类型
     pub fn get_option_bool(&self, keys: Vec<&str>) -> Option<bool> {
-        if let Some(v) = self.get_option_string(keys) {
-            match v.parse::<bool>() {
-                Ok(value) => return Some(value),
-                Err(_) => (),
-            };
-            // 存在时默认为存在
-            return Some(true);
-        }
-        None
+        self.get_option(keys)
     }
 
     /// 获取 f64 类型
     pub fn get_option_f64(&self, keys: Vec<&str>) -> Option<f64> {
-        if let Some(v) = self.get_option_string(keys) {
-            match v.parse::<f64>() {
-                Ok(value) => return Some(value),
-                Err(_) => (),
-            };
+        self.get_option(keys)
+    }
+
+    /// 获取任意解析参数
+    pub fn get_option<T>(&self, keys: Vec<&str>) -> Option<T>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Debug,
+    {
+        if let Some(raw) = self.get_option_string(keys) {
+            let value = raw.parse::<T>();
+            if value.is_ok() {
+                return Some(value.unwrap());
+            }
         }
         None
     }

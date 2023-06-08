@@ -17,6 +17,7 @@
   - feat(Cmd): 实现 `Default` trait
   - feat(Cmd): 尝试调整方法结构，是`Cmd::new` 后可多次 `Cmd.run`。
   - feat(CmdRunString): 新增trait 使用实现 `Vec<String>` 方法的请求
+  - feat(args::Args): 新增基于范类的 `get_option` 方法
   - break(Cmd): 删除方法 `from` 和 `from_str` 方法。改变方法基础为 `new -> run`
   - feat: 新增方法 `project_path` 用于实现二进制所在目录的文件路径
 - **uymas**
