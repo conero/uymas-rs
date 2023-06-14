@@ -40,6 +40,9 @@ cargo build --bin uymas --manifest-path .\cmd\uymas\Cargo.toml --release
 
 # 发布 uymas_cli 库到 crates-io
 cargo publish -p uymas_cli --registry crates-io
+
+# 代码分析以及提示，lint
+cargo clippy
 ```
 
 

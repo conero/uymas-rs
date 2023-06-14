@@ -12,6 +12,9 @@ pub struct ActionApp {
     pub action: Box<dyn Action>,
 }
 
+pub type CmdCallOption = Option<Box<dyn FnMut(&Args)>>;
+pub type CmdCallMap = HashMap<String, Box<dyn FnMut(&Args)>>;
+
 /// 命令行工具，使用实现命令行注册
 ///
 ///
@@ -61,11 +64,11 @@ pub struct ActionApp {
 /// cmd.run(vec!["git", "status"]);
 /// ```
 pub struct Cmd {
-    raw_args: Vec<String>,                            //原始输入参数
-    calls: HashMap<String, Box<dyn FnMut(&Args)>>,    // （注册的）函数集合
-    actions: Vec<ActionApp>,                          // 方法集合
-    action_default: Option<Box<dyn FnMut(&Args)>>,    // 默认执行方法
-    action_no_handler: Option<Box<dyn FnMut(&Args)>>, // 不存在的处理方法时
+    raw_args: Vec<String>,            //原始输入参数
+    calls: CmdCallMap,                // （注册的）函数集合
+    actions: Vec<ActionApp>,          // 方法集合
+    action_default: CmdCallOption,    // 默认执行方法
+    action_no_handler: CmdCallOption, // 不存在的处理方法时
     args: Option<Args>,
     cmd_alias: Option<HashMap<String, Vec<String>>>, // 命令别名类别，函数定义时
 }
@@ -157,8 +160,8 @@ impl Cmd {
     }
 
     /// app 类型应用注册
-    pub fn register_action(&mut self, app: Box<ActionApp>) -> &mut Cmd {
-        self.actions.push(*app);
+    pub fn register_action(&mut self, app: ActionApp) -> &mut Cmd {
+        self.actions.push(app);
         self
     }
 
@@ -195,7 +198,7 @@ impl Cmd {
         let args = self.args.as_ref().unwrap();
         // 函数式定义参数
         for (v_key, v_fn) in &mut self.calls {
-            if args.command == String::from(v_key) {
+            if args.command == *v_key {
                 v_fn(args);
                 return;
             }
@@ -203,10 +206,10 @@ impl Cmd {
         // 函数式定义参数（别名）
         if let Some(cmd_alias) = &self.cmd_alias {
             for (ca_key, ca_val) in cmd_alias {
-                let mut is_match = args.command == String::from(ca_key.as_str());
+                let mut is_match = args.command == *ca_key.as_str();
                 if !is_match {
                     for cv in ca_val {
-                        if args.command == String::from(cv.as_str()) {
+                        if args.command == *cv.as_str() {
                             is_match = true;
                             break;
                         }
@@ -228,7 +231,7 @@ impl Cmd {
                 return;
             } else {
                 for alias in &action.alias {
-                    if String::from(alias) == args.command {
+                    if *alias == args.command {
                         action.action.as_ref().run(args);
                         return;
                     }

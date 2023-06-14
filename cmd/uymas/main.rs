@@ -42,7 +42,7 @@ fn main() {
         action: Box::new(Version {}),
     };
 
-    cmd.register_action(Box::new(version));
+    cmd.register_action(version);
 
     // 命令不存在
     cmd.un_found(|args: &Args| println!("{} 命令未存在！", args.command));

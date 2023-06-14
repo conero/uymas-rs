@@ -10,6 +10,15 @@
 
 
 
+### v2.1.1/dev
+
+> 代码根据 `cargo cliappy` 提示进行整改优化。
+
+- **cli**
+  - pref!(Cmd.register_action): 传递参数更改为非“Box”处理
+
+
+
 ### v2.1.0/2023-06-08
 
 - **cli**

@@ -64,27 +64,27 @@ impl Args {
     /// 获取 i32 数据类型
     pub fn get_value_i32(&self, keys: Vec<&str>) -> i32 {
         if let Some(v) = self.get_option::<i32>(keys) {
-            return v as i32;
+            return v;
         }
         0
     }
 
     /// 获取 bool 类型数据
     pub fn get_value_bool(&self, keys: Vec<&str>) -> bool {
-        return if let Some(v) = self.get_option::<bool>(keys) {
+        if let Some(v) = self.get_option::<bool>(keys) {
             v
         } else {
             false
-        };
+        }
     }
 
     /// 获取 bool 类型数据
     pub fn get_value_f64(&self, keys: Vec<&str>) -> f64 {
-        return if let Some(v) = self.get_option(keys) {
+        if let Some(v) = self.get_option(keys) {
             v
         } else {
             0.0
-        };
+        }
     }
 
     /// 查看是否存在 options
@@ -128,7 +128,7 @@ impl Args {
     /// let cmd = Cmd::new();
     /// cmd.run(vec!["rustc", "--version"]);
     /// ```
-    pub fn from_args(args: &Vec<String>) -> Args {
+    pub fn from_args(args: &Vec<String>) -> Self {
         // 字段信息
         let mut command = String::new(); // 命令
         let mut sub_command = String::new(); // 子命令
@@ -142,7 +142,7 @@ impl Args {
 
         for arg in args {
             let arg = &String::from(arg.trim());
-            if arg.is_empty() || arg.len() < 1 {
+            if arg.is_empty() {
                 continue;
             }
             let mut long_opt: i32 = -1;
@@ -151,55 +151,53 @@ impl Args {
             if let Some(vi) = arg.find("--") {
                 long_opt = vi as i32;
             };
-            if let Some(vi) = arg.find("-") {
+            if let Some(vi) = arg.find('-') {
                 shot_opt = vi as i32;
             };
-            if let Some(vi) = arg.find("=") {
+            if let Some(vi) = arg.find('=') {
                 equal_opt = vi;
             }
             let is_not_opt = shot_opt != 0;
             if count == 0 && is_not_opt {
                 // 命令解析
                 command = String::from(arg);
-            } else if count == 1 && sub_command.len() == 0 && is_not_opt {
+            } else if count == 1 && sub_command.is_empty() && is_not_opt {
                 // 子命令
                 sub_command = String::from(arg);
-            } else {
-                if long_opt == 0 || shot_opt == 0 {
-                    let (ndt, nv) = Args::_args_update_data(&data, &last_opt, &last_value);
-                    data = ndt;
-                    last_value = nv;
+            } else if long_opt == 0 || shot_opt == 0 {
+                let (ndt, nv) = Args::_args_update_data(&data, &last_opt, &last_value);
+                data = ndt;
+                last_value = nv;
 
-                    // 选项处理
-                    let is_log_opt = long_opt == 0;
-                    let split_idx = if is_log_opt { 2 } else { 1 };
-                    let (_, opt) = arg.split_at(split_idx);
+                // 选项处理
+                let is_log_opt = long_opt == 0;
+                let split_idx = if is_log_opt { 2 } else { 1 };
+                let (_, opt) = arg.split_at(split_idx);
 
-                    if is_log_opt {
-                        last_opt = String::from(opt);
-                    } else {
-                        for by in opt.chars() {
-                            last_opt = String::from(by);
-                            if last_opt.find("=").is_none() {
-                                option.push(String::from(&last_opt));
-                            }
+                if is_log_opt {
+                    last_opt = String::from(opt);
+                } else {
+                    for by in opt.chars() {
+                        last_opt = String::from(by);
+                        if !last_opt.contains('=') {
+                            option.push(String::from(&last_opt));
                         }
                     }
-
-                    if let Some(vi) = last_opt.find("=") {
-                        equal_opt = vi;
-                    }
-                    if equal_opt > 0 {
-                        // 处理含等于符号的选项
-                        let (eq_key, eq_value) = last_opt.split_at(equal_opt);
-                        last_value.push(String::from(&eq_value[1..]));
-                        last_opt = String::from(eq_key);
-                    }
-
-                    option.push(String::from(&last_opt));
-                } else {
-                    last_value.push(String::from(arg));
                 }
+
+                if let Some(vi) = last_opt.find('=') {
+                    equal_opt = vi;
+                }
+                if equal_opt > 0 {
+                    // 处理含等于符号的选项
+                    let (eq_key, eq_value) = last_opt.split_at(equal_opt);
+                    last_value.push(String::from(&eq_value[1..]));
+                    last_opt = String::from(eq_key);
+                }
+
+                option.push(String::from(&last_opt));
+            } else {
+                last_value.push(String::from(arg));
             }
             count += 1;
         }
@@ -218,12 +216,12 @@ impl Args {
     }
 
     /// 根据 os::args 获取参数
-    pub fn from_os() -> Args {
+    pub fn from_os() -> Self {
         Args::from_args(&get_os_args())
     }
 
     /// 根据字符串转 Args 参数
-    pub fn from_str(param: &str) -> Args {
+    pub fn from_str(param: &str) -> Self {
         let queue = param.split(' ').collect();
         let args: Vec<String> = into_string_vec(queue);
         Args::from_args(&args)
@@ -272,9 +270,9 @@ impl Args {
         <T as FromStr>::Err: Debug,
     {
         if let Some(raw) = self.get_option_string(keys) {
-            let value = raw.parse::<T>();
-            if value.is_ok() {
-                return Some(value.unwrap());
+            let value_or_err = raw.parse::<T>();
+            if let Ok(value) = value_or_err {
+                return Some(value);
             }
         }
         None
@@ -282,11 +280,11 @@ impl Args {
 }
 
 pub trait ArgsFromOs {
-    fn new() -> Args;
+    fn new() -> Self;
 }
 
 impl ArgsFromOs for Args {
-    fn new() -> Args {
+    fn new() -> Self {
         Args::from_os()
     }
 }
@@ -302,7 +300,7 @@ pub trait ArgsNew<T> {
 /// ```
 impl ArgsNew<&Vec<String>> for Args {
     fn new(param: &Vec<String>) -> Self {
-        Args::from_args(&param)
+        Args::from_args(param)
     }
 }
 
@@ -364,7 +362,7 @@ impl ArgsOptionParseDefine for Args {
         <T as FromStr>::Err: Debug,
     {
         if let Some(v_str) = self.get_option_string(keys) {
-            return parse_option_vec(v_str.clone(), split);
+            return parse_option_vec(v_str, split);
         }
         None
     }
@@ -384,7 +382,7 @@ impl ArgsOptionParse for Args {
         <T as FromStr>::Err: Debug,
     {
         if let Some(v_str) = self.get_option_string(keys) {
-            return parse_option_vec(v_str.clone(), ",");
+            return parse_option_vec(v_str, ",");
         }
         None
     }
@@ -400,18 +398,17 @@ impl ArgsOptionParse for Args {
 /// ```
 pub fn project_path<P: AsRef<Path>>(joins: P) -> String {
     let path = base_bin_path(joins);
-    path.replace("\\", "/")
+    path.replace('\\', "/")
 }
 
 /// 获取当前正在执行二进制所在路径
 pub fn get_exec_path() -> String {
     let mut exec_path = String::new();
-    for arg in env::args() {
+    if let Some(arg) = env::args().next() {
         exec_path = arg;
-        break;
     }
 
-    exec_path.replace("\\", "/")
+    exec_path.replace('\\', "/")
 }
 
 /// 获取当前正在执行二进制所在目录
@@ -420,7 +417,7 @@ pub fn get_exec_dir() -> String {
     let pth = Path::new(&exec_path);
 
     if let Some(parent) = pth.parent() {
-        format!("{}", parent.to_str().unwrap())
+        parent.to_str().unwrap().to_string()
     } else {
         String::new()
     }
@@ -432,7 +429,7 @@ pub fn get_exec_name() -> String {
     let pth = Path::new(&exec_path);
 
     if let Some(vfl) = pth.file_name() {
-        format!("{}", vfl.to_str().unwrap())
+        vfl.to_str().unwrap().to_string()
     } else {
         String::new()
     }
@@ -444,13 +441,13 @@ pub fn root_path_split() -> (String, String) {
     let pth = Path::new(&exec_path);
 
     let file_name = if let Some(vfl) = pth.file_name() {
-        format!("{}", vfl.to_str().unwrap())
+        vfl.to_str().unwrap().to_string()
     } else {
         String::new()
     };
 
     if let Some(parent) = pth.parent() {
-        (format!("{}", parent.to_str().unwrap()), file_name)
+        (parent.to_str().unwrap().to_string(), file_name)
     } else {
         (String::new(), file_name)
     }
@@ -461,7 +458,7 @@ fn base_bin_path<P: AsRef<Path>>(joins: P) -> String {
     let basedir = root_path_split();
     let pth = Path::new(basedir.0.as_str());
     let pth = pth.join(joins);
-    format!("{}", pth.to_str().unwrap())
+    pth.to_str().unwrap().to_string()
 }
 
 /// 参数解析
@@ -474,14 +471,14 @@ where
     let mut parse = Vec::new();
     for vs in vec_list {
         let rslt_or_err = String::from(vs).parse::<T>();
-        if rslt_or_err.is_ok() {
-            parse.push(rslt_or_err.unwrap());
+        if let Ok(relt) = rslt_or_err {
+            parse.push(relt);
         }
     }
 
-    if parse.len() == 0 {
+    if parse.is_empty() {
         return None;
     }
 
-    return Some(parse);
+    Some(parse)
 }
