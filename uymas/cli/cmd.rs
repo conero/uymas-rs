@@ -150,13 +150,21 @@ impl Cmd {
         self
     }
 
-    // 命令方法注册
+    /// 命令方法注册
     pub fn register<F>(&mut self, name: &str, action: F) -> &mut Cmd
     where
         F: FnMut(&Args) + 'static,
     {
         self.calls.insert(String::from(name), Box::new(action));
         self
+    }
+
+    /// 命令方法注册
+    pub fn registers<F>(&mut self, names: Vec<&str>, action: F) -> &mut Self
+    where
+        F: FnMut(&Args) + 'static,
+    {
+        self.try_register_multi(names, action)
     }
 
     /// app 类型应用注册

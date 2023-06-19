@@ -16,6 +16,7 @@
 
 - **cli**
   - pref!(Cmd.register_action): 传递参数更改为非“Box”处理
+  - feat(Cmd.registers): 新增方法，用于多参数注册
 
 
 
