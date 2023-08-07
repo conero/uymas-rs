@@ -3,8 +3,11 @@ extern crate cli;
 use cli::action::Action;
 use cli::args::Args;
 use cli::cmd::{ActionApp, Cmd, CmdRunArgs, CmdRunOs};
-use cli::{args, VERSION};
+use cli::{args, RELEASE, VERSION};
 use std::time::Instant;
+
+// 文件引入
+include!(concat!(env!("OUT_DIR"), "/uymas-version.rs"));
 
 // 注入式类型
 mod repl_cmd;
@@ -14,7 +17,17 @@ struct Version {
 }
 
 impl Action for Version {
-    fn run(&self, _: &Args) {
+    fn run(&self, args: &Args) {
+        if args.contain_opts(vec!["verbose", "V"]) {
+            println!(
+                "v{}/{} ({}) {}",
+                VERSION,
+                RELEASE,
+                current_git_hash(),
+                build_date()
+            );
+            return;
+        }
         println!("v{}", VERSION)
     }
 }
@@ -23,7 +36,7 @@ impl Action for Version {
 fn action_help(_: &Args) {
     println!("命令如下：");
     println!("test,t    参数解析测试");
-    println!("version   版本号输出");
+    println!("version   版本号输出，--verbose,-V 详细信息输出");
     println!("repl      交互式命令行测试");
     println!();
     println!("全局选项：");
