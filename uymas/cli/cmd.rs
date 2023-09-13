@@ -1,7 +1,11 @@
 use crate::action::Action;
 use crate::args::{Args, ArgsNew};
+use crate::cmd::subc::ExternSubc;
 use std::collections::HashMap;
 use std::env;
+
+/// sub command 子命令，支持加载同目录下其他二进制文件
+pub mod subc;
 
 // 类型别名
 // type ActionFn = fn(&Args);
@@ -120,6 +124,7 @@ pub trait CmdRunString {
 }
 
 // 为结构体添加方法
+// @todo 考虑是否为其添加事件，调用前、调用后等事件。如 before, end 之类
 impl Cmd {
     /// 命令行方法调用
     pub fn new() -> Cmd {
@@ -243,6 +248,24 @@ impl Cmd {
                         action.action.as_ref().run(args);
                         return;
                     }
+                }
+            }
+        }
+
+        // 尝试读取子目录
+        if !args.command.is_empty() {
+            let es = ExternSubc::new(args.command.clone());
+            if es.is_valid() {
+                let raw = args.raw.clone();
+                let count = raw.len();
+                let raw = &raw[1..count].to_vec();
+                let (is_ok, content) = es.run(raw);
+                if is_ok {
+                    println!("{}", content);
+                    let mut args_chg = args.clone();
+                    args_chg.is_extern_subc = true;
+                    self.args = Some(args_chg);
+                    return;
                 }
             }
         }

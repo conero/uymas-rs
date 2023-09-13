@@ -31,5 +31,6 @@ cargo build -p hero --features log
 # 指定多个
 cargo build -p hero --features log --features dev
 cargo build -p hero --features 'dev,log'
+cargo build -p hero --features 'dev log'
 ```
 

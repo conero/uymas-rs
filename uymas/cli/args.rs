@@ -17,6 +17,7 @@ pub struct Args {
     // 请求参数
     pub data: HashMap<String, Vec<String>>,
     pub raw: Vec<String>,
+    pub is_extern_subc: bool, // 外部子命令
 }
 
 impl Args {
@@ -212,6 +213,7 @@ impl Args {
             option,
             data,
             raw: args.to_vec(),
+            is_extern_subc: false,
         }
     }
 
@@ -343,6 +345,7 @@ impl Clone for Args {
             option: self.option.clone(),
             data: self.data.clone(),
             raw: self.raw.clone(),
+            is_extern_subc: self.is_extern_subc.clone(),
         }
     }
 }
@@ -430,6 +433,22 @@ pub fn get_exec_name() -> String {
 
     if let Some(vfl) = pth.file_name() {
         vfl.to_str().unwrap().to_string()
+    } else {
+        String::new()
+    }
+}
+
+/// 过去可执行名称无后缀
+pub fn get_exec_no_ext() -> String {
+    let exec_path = get_exec_path();
+    let pth = Path::new(&exec_path);
+
+    if let Some(vfl) = pth.file_name() {
+        let mut file_name = vfl.to_str().unwrap().to_string();
+        if let Some(ext) = pth.extension() {
+            file_name = file_name.replace(&ext.to_str().unwrap().to_string(), "");
+        }
+        file_name
     } else {
         String::new()
     }
