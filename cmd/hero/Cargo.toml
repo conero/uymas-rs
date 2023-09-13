@@ -15,6 +15,7 @@ env_logger = "0.10.0"
 lazy_static = "1.4.0"
 log = "0.4.20"
 serde = { version = "1.0.188", features = ["derive"] }
+toml = "0.8.0"
 
 [features]
 # 系统开发编译

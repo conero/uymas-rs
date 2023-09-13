@@ -2,8 +2,7 @@
 #resolver = "2"
 members = [
     "uymas/*",
-    "cmd/uymas",
-    "cmd/hero",
+    "cmd/*",
 ]
 
 

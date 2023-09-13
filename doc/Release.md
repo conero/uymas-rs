@@ -17,6 +17,9 @@
 - **cli**
   - pref!(Cmd.register_action): 传递参数更改为非“Box”处理
   - feat(Cmd.registers): 新增方法，用于多参数注册
+- **cmd/hero**
+  - feat: 新增包 hero 实现config、log等命令行脚手架模板
+
 
 
 
