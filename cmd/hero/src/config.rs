@@ -6,7 +6,9 @@ use std::io::Read;
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct CfgLog {
     #[serde(default = "def_str_empty")]
-    level: String,
+    pub level: String,
+    #[serde(default = "def_str_empty")]
+    pub file: String,
 }
 
 // 配合下默认为空
@@ -17,7 +19,7 @@ fn def_str_empty() -> String {
 /// 系统配置文件
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct Config {
-    log: CfgLog,
+    pub log: CfgLog,
 }
 
 impl Config {
@@ -53,6 +55,7 @@ impl Default for Config {
         Config {
             log: CfgLog {
                 level: "trace".to_string(),
+                file: String::new(),
             },
         }
     }

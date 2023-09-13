@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4.30"
 #
 # 实际项目，使用如下
 # 安装开发分支代码
@@ -20,3 +21,7 @@ toml = "0.8.0"
 [features]
 # 系统开发编译
 log = []
+# 开发模式
+dev = []
+
+#default = ["log"]

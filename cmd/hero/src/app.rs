@@ -26,4 +26,15 @@ impl App {
         }
         println!("config       配置信息查看");
     }
+
+    #[cfg(feature = "log")]
+    pub fn log(arg: &Args) {
+        log::info!("日志测试服务");
+        log::info!(" subcommand        {}", arg.sub_command);
+    }
+
+    // 命令不存在
+    pub fn noexist(arg: &Args) {
+        println!("{} 命令不存在！", arg.command);
+    }
 }

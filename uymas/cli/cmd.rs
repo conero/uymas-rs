@@ -251,6 +251,7 @@ impl Cmd {
         if let Some(action_no_hdl) = &mut self.action_no_handler {
             if !args.command.is_empty() {
                 action_no_hdl(args);
+                return;
             }
         }
 

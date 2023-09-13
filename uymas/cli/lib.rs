@@ -11,6 +11,7 @@ pub mod action;
 pub mod args;
 /// 命令行实例
 pub mod cmd;
+pub mod util_fs;
 
 // 测试用例，使用 tests 代替
 // #[cfg(test)]

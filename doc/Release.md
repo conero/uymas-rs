@@ -17,6 +17,11 @@
 - **cli**
   - pref!(Cmd.register_action): 传递参数更改为非“Box”处理
   - feat(Cmd.registers): 新增方法，用于多参数注册
+  - fix: Cmd.un_found 修复定义了未发现函数式依然向下执行（应该结束）。
+- **cli/util_fs**
+  - feat: 新增模块实现文件系统的助手功能
+  - feat: dir_check、append_file等函数实现文件追加写入
+
 - **cmd/hero**
   - feat: 新增包 hero 实现config、log等命令行脚手架模板
 
