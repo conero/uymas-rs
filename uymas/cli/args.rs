@@ -345,7 +345,7 @@ impl Clone for Args {
             option: self.option.clone(),
             data: self.data.clone(),
             raw: self.raw.clone(),
-            is_extern_subc: self.is_extern_subc.clone(),
+            is_extern_subc: self.is_extern_subc,
         }
     }
 }

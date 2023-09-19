@@ -88,9 +88,8 @@ impl ExternSubc {
         for arg in args {
             run.arg(arg);
         }
-        let cmd_rslt = run.output();
-        if cmd_rslt.is_ok() {
-            return (true, String::from_utf8(cmd_rslt.unwrap().stdout).unwrap());
+        if let Ok(rslt) = run.output() {
+            return (true, String::from_utf8(rslt.stdout).unwrap());
         }
 
         (false, String::new())
