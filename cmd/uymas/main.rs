@@ -45,6 +45,22 @@ fn action_help(_: &Args) {
     println!();
 }
 
+fn action_test(arg: &Args) {
+    println!("command: {}", arg.command);
+    println!("sub_command: {}", arg.sub_command);
+    println!("option: {:?}", arg.option);
+    println!("data: {:?}", arg.data);
+    println!("raw: {:?}", arg.raw);
+    if let Some(opt_test) = arg.get_option_string(vec!["var", "v"]) {
+        println!(
+            "test Option: {} => {:?}",
+            opt_test.clone(),
+            arg.get_value_string(vec![opt_test.as_str()])
+        );
+    }
+    println!();
+}
+
 // 二进制文件
 fn main() {
     let now = Instant::now();
@@ -62,15 +78,13 @@ fn main() {
 
     // test
     // move test
-    cmd.register_multi(vec!["test", "t"], move |args: &Args| {
-        println!("command: {}", args.command);
-        println!("sub_command: {}", args.sub_command);
-        println!("option: {:?}", args.option);
-        println!("data: {:?}", args.data);
-        println!("raw: {:?}", args.raw);
+    cmd.register_multi(vec!["test", "t"], move |arg: &Args| {
+        action_test(arg);
         println!();
         println!("用时：{} 毫秒(ms).", now.elapsed().as_micros());
         println!("应用所在目录：{}", args::get_exec_dir());
+        println!();
+        println!("输入命令 “--var,-v $name”   可用于读取 $name 的option参数");
     });
 
     // help
@@ -84,6 +98,9 @@ fn main() {
             return;
         } else if args.contain_opts(vec!["help", "?", "h"]) {
             action_help(args);
+            return;
+        } else if args.contain_opts(vec!["test"]) {
+            action_test(args);
             return;
         }
         println!("$ {} [command] [option]", args::get_exec_name());

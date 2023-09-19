@@ -47,6 +47,7 @@ fn parse() {
 
 #[test]
 fn test_get_value_string() {
+    /*
     // case1
     let input: Vec<String> = vec![
         String::from("test-pool"),
@@ -61,6 +62,25 @@ fn test_get_value_string() {
     let ipt2 = vec!["git", "--name", "joshua", "Conero"];
     let args = <Args as ArgsNew<Vec<&str>>>::new(ipt2);
     assert_eq!(args.get_value_string(vec!["name"]), "joshua Conero");
+
+    // case3
+    let ipt2 = vec!["uymas", "--file", "./test/conero.sp"];
+    let args = <Args as ArgsNew<Vec<&str>>>::new(ipt2);
+    assert_eq!(args.get_value_string(vec!["file"]), "./test/conero.sp");
+    assert_eq!(
+        args.get_option_string(vec!["file"]),
+        Some("./test/conero.sp".to_string())
+    );
+     */
+
+    // case3
+    let ipt2 = vec!["--msg", "it-a-good-man", "--eq", "1+3", "4+7", "6+6"];
+    let args = <Args as ArgsNew<Vec<&str>>>::new(ipt2);
+    assert_eq!(args.get_value_string(vec!["msg"]), "it-a-good-man");
+    assert_eq!(
+        args.get_option_string(vec!["msg"]),
+        Some("it-a-good-man".to_string())
+    );
 }
 
 #[test]

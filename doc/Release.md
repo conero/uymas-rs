@@ -16,6 +16,7 @@
 
 - **cli**
   - pref!:  Cmd.register_action 传递参数更改为非“Box”处理
+  - pref: Args.*from_args* 参数解析优化，使其支持`$ --option xxx`选项解析（无命令纯选项）
   - feat: 新增方法 Cmd.registers，用于多参数注册
   - feat: 新增 `cmd::subc::ExternSubc` 实现对外部exe文件的支持
   - fix: Cmd.un_found 修复定义了未发现函数式依然向下执行（应该结束）。

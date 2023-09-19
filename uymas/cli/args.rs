@@ -151,21 +151,21 @@ impl Args {
             let mut equal_opt: usize = 0; // 是否含等于
             if let Some(vi) = arg.find("--") {
                 long_opt = vi as i32;
-            };
-            if let Some(vi) = arg.find('-') {
+            } else if let Some(vi) = arg.find('-') {
                 shot_opt = vi as i32;
             };
             if let Some(vi) = arg.find('=') {
                 equal_opt = vi;
             }
-            let is_not_opt = shot_opt != 0;
+
+            let is_not_opt = shot_opt != 0 && long_opt != 0;
             if count == 0 && is_not_opt {
                 // 命令解析
                 command = String::from(arg);
-            } else if count == 1 && sub_command.is_empty() && is_not_opt {
+            } else if count == 1 && !command.is_empty() && is_not_opt {
                 // 子命令
                 sub_command = String::from(arg);
-            } else if long_opt == 0 || shot_opt == 0 {
+            } else if !is_not_opt {
                 let (ndt, nv) = Args::_args_update_data(&data, &last_opt, &last_value);
                 data = ndt;
                 last_value = nv;
