@@ -19,6 +19,7 @@ impl Display for ErrMsg {
 
 impl Error for ErrMsg {}
 
+/// 不直接使用 `ErrMsgString`，其作为内部的参数使用
 pub trait ErrMsgString {
     fn new(msg: String) -> Self;
 }
@@ -42,12 +43,32 @@ impl ErrMsgStr for ErrMsg {
 }
 
 impl ErrMsg {
-    // 错误抛出
+    /// 抛出`String`异常消息
+    /// # Examples
+    ///
+    /// 基本使用
+    ///
+    /// ```
+    /// use uymas_cli::err::ErrMsg;
+    /// fn to_throw_err() -> Result<(), Box<dyn std::error::Error>>{
+    ///     Err(ErrMsg::throw("参数缺少".to_string()))
+    /// }
+    /// ```
     pub fn throw(msg: String) -> Box<dyn Error> {
         Box::try_from(<ErrMsg as ErrMsgString>::new(msg)).unwrap()
     }
 
-    // 错误抛出
+    /// 抛出`str`异常消息
+    /// # Examples
+    ///
+    /// 基本使用
+    ///
+    /// ```
+    /// use uymas_cli::err::ErrMsg;
+    /// fn to_throw_err() -> Result<(), Box<dyn std::error::Error>>{
+    ///     Err(ErrMsg::throw_str("请求失败"))
+    /// }
+    /// ```
     pub fn throw_str(msg: &str) -> Box<dyn Error> {
         Box::try_from(<ErrMsg as ErrMsgString>::new(String::from(msg))).unwrap()
     }

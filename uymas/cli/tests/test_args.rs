@@ -47,7 +47,6 @@ fn parse() {
 
 #[test]
 fn test_get_value_string() {
-    /*
     // case1
     let input: Vec<String> = vec![
         String::from("test-pool"),
@@ -71,7 +70,6 @@ fn test_get_value_string() {
         args.get_option_string(vec!["file"]),
         Some("./test/conero.sp".to_string())
     );
-     */
 
     // case3
     let ipt2 = vec!["--msg", "it-a-good-man", "--eq", "1+3", "4+7", "6+6"];
