@@ -279,6 +279,69 @@ impl Args {
         }
         None
     }
+
+    /// 自定义构造 Args 对象并解析为字符串参数
+    ///
+    /// # Example
+    ///
+    /// 基本使用：
+    /// ```
+    /// use std::collections::HashMap;
+    /// use uymas_cli::args::Args;
+    /// let mut data = HashMap::from([
+    ///     ("output".to_string(), vec!["./bin/name".to_string()]),
+    ///     ("arch".to_string(), vec!["amd64".to_string()]),
+    ///     ("x".to_string(), vec!["windows".to_string(), "unix".to_string()]),
+    ///     ("stage".to_string(), vec!["b1".to_string(), "t2".to_string()]),
+    /// ]);
+    /// let app = Args{
+    ///     command: "jc".to_string(),
+    ///     sub_command: "build".to_string(),
+    ///     option: vec!["utf8".to_string(), "release".to_string(), "mini".to_string(), "g".to_string()],
+    ///     data,
+    ///     raw: vec![],
+    ///     is_extern_subc: false,
+    /// };
+    ///
+    /// let ref_msg =
+    ///     String::from("jc build --output ./bin/name --arch amd64 -x windows unix --stage b1 t2 --utf8 --release --mini -g");
+    /// assert_eq!(app.parse_string(), ref_msg);
+    /// ```
+    pub fn parse_string(&self) -> String {
+        let mut raw = vec![];
+        // 命令行
+        if !self.command.is_empty() {
+            raw.push(self.command.clone());
+            if !self.sub_command.is_empty() {
+                raw.push(self.sub_command.clone());
+            }
+        }
+
+        // 数据还原（复原）
+        for (opt, ls) in &self.data {
+            let name = if opt.len() == 1 {
+                format!("-{}", opt)
+            } else {
+                format!("--{}", opt)
+            };
+            raw.push(format!("{} {}", name, ls.join(" ")));
+        }
+
+        // 选项复原
+        for opt in self.option.clone().into_iter() {
+            if self.data.get(&opt).is_some() {
+                continue;
+            }
+            let name = if opt.len() == 1 {
+                format!("-{}", opt)
+            } else {
+                format!("--{}", opt)
+            };
+            raw.push(name);
+        }
+
+        raw.join(" ")
+    }
 }
 
 pub trait ArgsFromOs {

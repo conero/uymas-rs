@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 // extern crate uymas_cli as cli;
 // 执行测试用例: `cargo test --test test_args`
 use uymas_cli::args::{Args, ArgsNew};
@@ -96,4 +97,38 @@ fn test_get_value_i32() {
     assert_eq!(30, args.get_value_i32(vec!["age"]));
     assert_eq!(100, args.get_value_i32(vec!["wight"]));
     assert_eq!(11, args.get_value_i32(vec!["Z"]));
+}
+
+#[test]
+fn test_parse_string() {
+    // case
+    let mut data = HashMap::from([
+        ("output".to_string(), vec!["./bin/name".to_string()]),
+        ("arch".to_string(), vec!["amd64".to_string()]),
+        (
+            "x".to_string(),
+            vec!["windows".to_string(), "unix".to_string()],
+        ),
+        (
+            "stage".to_string(),
+            vec!["b1".to_string(), "t2".to_string()],
+        ),
+    ]);
+    let app = Args {
+        command: "jc".to_string(),
+        sub_command: "build".to_string(),
+        option: vec![
+            "utf8".to_string(),
+            "release".to_string(),
+            "mini".to_string(),
+            "g".to_string(),
+        ],
+        data,
+        raw: vec![],
+        is_extern_subc: false,
+    };
+
+    let ref_msg =
+        String::from("jc build --output ./bin/name --arch amd64 -x windows unix --stage b1 t2 --utf8 --release --mini -g");
+    assert_eq!(app.parse_string(), ref_msg);
 }

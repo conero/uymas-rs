@@ -104,9 +104,11 @@ fn main() {
             return;
         }
         println!("$ {} [command] [option]", args::get_exec_name());
-        println!("uymas 命令行工具");
-        println!("uymas_cli 目标是创建快速依赖最小的命令行库");
-        println!("v{}", VERSION);
+        println!();
+        println!(" uymas 命令行工具");
+        println!(" uymas_cli 目标是创建快速依赖最小的命令行库");
+        println!();
+        println!(" v{}/{}", VERSION, RELEASE);
     });
 
     // 注入式代码处理
