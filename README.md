@@ -35,6 +35,9 @@ $ cargo fmt
 
 # 编译代码
 cargo build -p uymas --release
+
+# 生成本地文档，并
+cargo doc -p uymas_cli --open
 ```
 
 
