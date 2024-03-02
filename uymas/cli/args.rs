@@ -477,8 +477,8 @@ pub fn get_exec_path() -> String {
     exec_path.replace('\\', "/")
 }
 
-/// 获取当前正在执行二进制所在目录
-pub fn get_exec_dir() -> String {
+// 通过解析函数获取当前目录地址
+fn get_exec_dir_by_args() -> String {
     let exec_path = get_exec_path();
     let pth = Path::new(&exec_path);
 
@@ -487,6 +487,24 @@ pub fn get_exec_dir() -> String {
     } else {
         String::new()
     }
+}
+
+/// 获取当前正在执行二进制所在目录
+pub fn get_exec_dir() -> String {
+    let mut v_dir = get_exec_dir_by_args();
+    if v_dir.is_empty() {
+        v_dir = if let Ok(cur_dir) = env::current_dir() {
+            if let Some(v) = cur_dir.to_str() {
+                String::from(v)
+            } else {
+                String::new()
+            }
+        } else {
+            String::new()
+        }
+    }
+
+    v_dir
 }
 
 /// 获取当前正在执行二进制名称

@@ -17,6 +17,7 @@
 - **cli**
   - pref!:  Cmd.register_action 传递参数更改为非“Box”处理
   - pref: Args.*from_args* 参数解析优化，使其支持`$ --option xxx`选项解析（无命令纯选项）
+  - pref: 优化 `args::get_exec_dir()` 函数当获取为空时尝试使用`env::current_dir`的结果，使其兼容 cmd.exe 等
   - feat: 新增方法 Cmd.registers，用于多参数注册
   - feat: 新增 `cmd::subc::ExternSubc` 实现对外部exe文件的支持
   - feat: 新增 `err::ErrMsg` 用于实现自定义字符串异常抛出。
