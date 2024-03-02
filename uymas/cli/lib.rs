@@ -30,6 +30,9 @@ pub mod err;
 /// fs文件操作助手
 pub mod util_fs;
 
+/// 辅助工具
+pub mod util;
+
 // 测试用例，使用 tests 代替
 // #[cfg(test)]
 // mod test_args;

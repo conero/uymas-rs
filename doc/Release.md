@@ -26,6 +26,8 @@
 - **cli/util_fs**
   - feat: 新增模块实现文件系统的助手功能
   - feat: dir_check、append_file等函数实现文件追加写入
+- **cli/util**
+  - feat: 新增函数`spend_time_diff`用于程序计时秒
 
 - **cmd/hero**
   - feat: 新增包 hero 实现config、log等命令行脚手架模板
