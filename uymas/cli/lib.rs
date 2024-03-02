@@ -33,6 +33,9 @@ pub mod util_fs;
 /// 辅助工具
 pub mod util;
 
+/// number 数字处理工具
+pub mod util_number;
+
 // 测试用例，使用 tests 代替
 // #[cfg(test)]
 // mod test_args;
