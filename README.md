@@ -57,3 +57,35 @@ uymas_cli = "2.0.0"
 
 
 
+
+
+**代码实例**
+
+```rust
+use cli::args::Args;
+use cli::cmd::{Cmd, CmdRunOs};
+
+// test action
+fn action_test(arg: &Args) {
+    println!("exec: {}", cli::args::get_exec_path());
+    println!("basedir: {}", cli::args::get_exec_dir());
+    println!("Args: {:?}", arg);
+}
+
+fn main() {
+    let mut app = Cmd::new();
+
+    app.empty(|arg| {
+        if arg.contain_opts(vec!["version", "V"]) {
+            println!("v0.0.1");
+            return;
+        }
+        println!("hello world, uymas cli!")
+    });
+
+    app.register("test", action_test);
+
+    app.run();
+}
+```
+

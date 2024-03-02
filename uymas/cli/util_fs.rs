@@ -3,7 +3,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::Path;
 
-/// 目录检测是否存在，不存在时舱室创建
+/// 目录检测是否存在，不存在时尝试创建
 pub fn dir_check(dirname: String, is_parent: bool) -> bool {
     let mut pth = Path::new(dirname.as_str());
     if is_parent {
