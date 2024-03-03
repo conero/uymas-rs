@@ -7,6 +7,9 @@ use cli::cmd;
 use cli::cmd::CmdRunOs;
 use lazy_static::lazy_static;
 
+// 文件引入
+include!(concat!(env!("OUT_DIR"), "/uymas-version.rs"));
+
 // 配置缓存
 // https://crates.io/crates/lazy_static
 lazy_static! {
@@ -38,6 +41,7 @@ fn main() {
 
     app.register("config", App::config);
     app.register("help", App::help);
+    app.register("version", App::version);
 
     #[cfg(feature = "log")]
     app.register("log", App::log);
@@ -48,6 +52,9 @@ fn main() {
     app.empty(|arg: &Args| {
         if arg.contain_opts(vec!["help", "h"]) {
             App::help(arg);
+            return;
+        } else if arg.contain_opts(vec!["version", "v"]) {
+            App::version(arg);
             return;
         }
         println!("这一个系统命令行脚手架项目");

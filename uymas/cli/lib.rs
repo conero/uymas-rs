@@ -1,5 +1,5 @@
 ///  依赖库版本信息库
-pub const VERSION: &str = "2.1.1";
+pub const VERSION: &str = "2.2.0";
 /// 项目代码
 pub const PROJECT: &str = "uymas";
 /// 发布日期，可选"dev"或"20060102"

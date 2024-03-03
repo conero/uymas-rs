@@ -25,12 +25,27 @@ impl App {
             return;
         }
         println!("config       配置信息查看");
+        println!("version      版本信息查看，为全局属性 --version,-v 别名");
+        println!("  --simple，-S   简介输出");
     }
 
     #[cfg(feature = "log")]
     pub fn log(arg: &Args) {
         log::info!("日志测试服务");
         log::info!(" subcommand        {}", arg.sub_command);
+    }
+
+    pub fn version(arg: &Args) {
+        if arg.contain_opts(vec!["simple", "S"]) {
+            println!("v{}-{}", crate::build_version(), crate::build_date());
+            return;
+        }
+        println!(
+            "v{} {} {}",
+            crate::build_version(),
+            crate::build_date(),
+            crate::build_git_hash()
+        );
     }
 
     // 命令不存在
