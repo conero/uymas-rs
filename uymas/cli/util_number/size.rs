@@ -73,7 +73,7 @@ pub fn unit_string(u: u64) -> String {
 pub fn size_transform_1000(num: f64) -> (f64, String) {
     let mut latest = num;
     let mut unit = 1;
-    for v in vec![PB, TB, GB, MB, KB, BYTE, BIT] {
+    for v in [PB, TB, GB, MB, KB, BYTE, BIT] {
         let v_f64 = v as f64;
         if num > v_f64 {
             latest = num / v_f64;
@@ -82,14 +82,14 @@ pub fn size_transform_1000(num: f64) -> (f64, String) {
         }
     }
 
-    return (latest, unit_string(unit));
+    (latest, unit_string(unit))
 }
 
 /// 文件大小转化为1024单位的文件大小
 pub fn size_transform_1024(num: f64) -> (f64, String) {
     let mut latest = num;
     let mut unit = 1;
-    for v in vec![PIB, TIB, GIB, MIB, KIB, BYTE, BIT] {
+    for v in [PIB, TIB, GIB, MIB, KIB, BYTE, BIT] {
         let v_f64 = v as f64;
         if num > v_f64 {
             latest = num / v_f64;
@@ -97,7 +97,8 @@ pub fn size_transform_1024(num: f64) -> (f64, String) {
             break;
         }
     }
-    return (latest, unit_string(unit));
+
+    (latest, unit_string(unit))
 }
 
 impl Size for f64 {
@@ -111,11 +112,11 @@ impl Size for f64 {
 
     fn human_size(&self) -> String {
         let (v, unit) = size_transform_1024(*self);
-        return format!("{:.3}{}", v, unit);
+        format!("{:.3}{}", v, unit)
     }
 
     fn human_size_1000(&self) -> String {
         let (v, unit) = size_transform_1024(*self);
-        return format!("{:.3}{}", v, unit);
+        format!("{:.3}{}", v, unit)
     }
 }

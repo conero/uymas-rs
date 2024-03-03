@@ -101,21 +101,21 @@ impl Args {
     // 参数解析处理过程参数
     fn _args_update_data(
         data: &HashMap<String, Vec<String>>,
-        last_opt: &String,
-        last_value: &Vec<String>,
+        last_opt: &str,
+        last_value: &[String],
     ) -> (HashMap<String, Vec<String>>, Vec<String>) {
         let mut new_data = data.clone();
-        let mut new_value = last_value.clone();
+        let mut new_value = last_value.to_owned();
 
         if !last_opt.is_empty() && !last_value.is_empty() {
-            if data.contains_key(last_opt.as_str()) {
-                let mut exits_value = data.get(last_opt.as_str()).unwrap().to_vec();
+            if data.contains_key(last_opt) {
+                let mut exits_value = data.get(last_opt).unwrap().to_vec();
                 for lv in new_value {
                     exits_value.push(lv);
                 }
-                new_data.insert(last_opt.clone(), exits_value.to_vec());
+                new_data.insert(last_opt.to_owned(), exits_value.to_vec());
             } else {
-                new_data.insert(last_opt.clone(), new_value);
+                new_data.insert(last_opt.to_owned(), new_value);
             }
             new_value = Vec::new();
         }

@@ -52,9 +52,9 @@ struct MTime {
     year: u64,
     month: u64,
     day: u64,
-    hour: u64,
-    minute: u64,
-    second: u64,
+    // hour: u64,
+    // minute: u64,
+    // second: u64,
 }
 
 impl MTime {
@@ -71,9 +71,9 @@ fn timestamp_to_time(timestamp: Duration) -> MTime {
     let mut y: u64 = 1970;
     let mut m: u64 = 1;
     let mut d: u64 = (_second / (24 * 60 * 60)) + 1; //够24小时才会加，所以当天不够24小时并不会加上去。所以需要多加一天才会显示正确
-    let s: u64 = _second % (24 * 60 * 60) % (60 * 60) % 60;
-    let minute: u64 = (_second % (24 * 60 * 60)) % (60 * 60) / 60;
-    let h: u64 = (_second % (24 * 60 * 60)) / (60 * 60) + 8;
+                                                     // let s: u64 = _second % (24 * 60 * 60) % (60 * 60) % 60;
+                                                     // let minute: u64 = (_second % (24 * 60 * 60)) % (60 * 60) / 60;
+                                                     // let h: u64 = (_second % (24 * 60 * 60)) / (60 * 60) + 8;
 
     // 处理年月日
     loop {
@@ -123,9 +123,9 @@ fn timestamp_to_time(timestamp: Duration) -> MTime {
         year: y,
         month: m,
         day: d,
-        hour: h,
-        minute: minute,
-        second: s,
+        // hour: h,
+        // minute: minute,
+        // second: s,
     }
 }
 

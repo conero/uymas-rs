@@ -12,7 +12,7 @@
 
 ### v2.2.0/dev
 
-> 代码根据 `cargo cliappy` 提示进行整改优化，新增常用包。
+> 代码根据 `cargo clippy` 提示进行整改优化，新增常用包。
 
 - **cli**
   - pref!:  Cmd.register_action 传递参数更改为非“Box”处理
