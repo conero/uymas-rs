@@ -28,6 +28,8 @@
   - feat: dir_check、append_file等函数实现文件追加写入
 - **cli/util**
   - feat: 新增函数`spend_time_diff`用于程序计时秒
+- **cli/util_numer**
+  - feat: 新增`size`包实现文件大小转人为可读的大小表现形式
 
 - **cmd/hero**
   - feat: 新增包 hero 实现config、log等命令行脚手架模板
