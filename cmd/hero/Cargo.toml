@@ -6,17 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.31"
+chrono = "0.4.34"
 #
 # 实际项目，使用如下
 # 安装开发分支代码
 # cli = { git = "https://github.com/conero/uymas-rs", branch = "try", package="uymas_cli" }
 cli = { version="2.0.2", path = "../../uymas/cli", package = "uymas_cli"}
-env_logger = "0.10.1"
+env_logger = "0.10.2"
 lazy_static = "1.4.0"
-log = "0.4.20"
-serde = { version = "1.0.194", features = ["derive"] }
-toml = "0.8.8"
+log = "0.4.21"
+serde = { version = "1.0.197", features = ["derive"] }
+toml = "0.8.10"
 
 [build-dependencies]
 cargo_metadata = "0.18.1"

@@ -26,7 +26,7 @@ impl App {
         }
         println!("config       配置信息查看");
         println!("version      版本信息查看，为全局属性 --version,-v 别名");
-        println!("  --simple，-S   简介输出");
+        println!("  --simple，-S   简洁输出");
     }
 
     #[cfg(feature = "log")]

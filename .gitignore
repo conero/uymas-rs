@@ -17,3 +17,5 @@ private/
 
 # ide
 .idea
+
+*.exe
