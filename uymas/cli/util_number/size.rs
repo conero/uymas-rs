@@ -112,11 +112,11 @@ impl Size for f64 {
 
     fn human_size(&self) -> String {
         let (v, unit) = size_transform_1024(*self);
-        format!("{:.3}{}", v, unit)
+        format!("{:.3} {}", v, unit)
     }
 
     fn human_size_1000(&self) -> String {
         let (v, unit) = size_transform_1024(*self);
-        format!("{:.3}{}", v, unit)
+        format!("{:.3} {}", v, unit)
     }
 }

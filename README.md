@@ -51,8 +51,11 @@ cargo doc -p uymas_cli --open
 # 安装开发分支代码
 cli = { git = "https://github.com/conero/uymas-rs", branch = "try", package="uymas_cli" }
 
+# 或使用 gitee.com 镜像
+#cli = { git = "https://gitee.com/conero/uymas-rs", branch = "try", package="uymas_cli" }
+
 # 安装 crate.io 发行版
-uymas_cli = "2.0.0"
+uymas_cli = "2.2.0"
 ```
 
 
