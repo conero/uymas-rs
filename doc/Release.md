@@ -6,7 +6,18 @@
 
 ### todo
 
-- [x] uymas 编译模式下，二进制还是比较大。与 [hi-lang](https://github.com/conero/lang/tree/hi-lang/hi-rust/learning22) 中相差较大 （`#221030`）
+> 加入带处理列表
+
+
+
+### v2.2.1/dev
+
+> v2.2 代码优化，完善doc以及添加更多测试代码
+
+- **examples**
+  - 加入 examples 包用于做基本的测试以及代码示例
+
+
 
 
 

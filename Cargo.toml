@@ -3,6 +3,7 @@
 members = [
     "uymas/*",
     "cmd/*",
+    "examples/*",
 ]
 
 

@@ -1,9 +1,9 @@
 ///  依赖库版本信息库
-pub const VERSION: &str = "2.2.0";
+pub const VERSION: &str = "2.2.1";
 /// 项目代码
 pub const PROJECT: &str = "uymas";
 /// 发布日期，可选"dev"或"20060102"
-pub const RELEASE: &str = "20240324";
+pub const RELEASE: &str = "dev";
 
 /// 命令行可注册命令
 pub mod action;
