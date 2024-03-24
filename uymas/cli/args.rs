@@ -2,7 +2,7 @@ use crate::cmd::get_os_args;
 use std::collections::HashMap;
 use std::env;
 use std::fmt::{Debug, Display};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
 /// 命令行解析后的参数
@@ -581,4 +581,10 @@ where
     }
 
     Some(parse)
+}
+
+/// 获取当前系统运行的目录
+pub fn get_current_dir<P: AsRef<Path>>(v_path: P) -> Result<PathBuf, std::io::Error> {
+    let cur_dir = env::current_dir()?;
+    Ok(cur_dir.join(v_path))
 }

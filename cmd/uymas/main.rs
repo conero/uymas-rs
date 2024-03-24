@@ -51,6 +51,7 @@ fn action_test(arg: &Args) {
     println!("option: {:?}", arg.option);
     println!("data: {:?}", arg.data);
     println!("raw: {:?}", arg.raw);
+    println!("cwd: {:?}", args::get_current_dir("").unwrap());
     if let Some(opt_test) = arg.get_option_string(vec!["var", "v"]) {
         println!(
             "test Option: {} => {:?}",
