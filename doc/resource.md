@@ -19,7 +19,8 @@
 cargo doc --open
 # 生成全部文档
 cargo doc --all-features --all
-
+# 仅打开指定的包
+cargo doc -p uymas_cli --open
 # 格式化
 cargo fmt
 ```
@@ -43,6 +44,9 @@ cargo publish -p uymas_cli --registry crates-io
 
 # 代码分析以及提示，lint
 cargo clippy
+
+# 根据 clippy 工具优化代码
+cargo clippy -p uymas_cli
 ```
 
 
