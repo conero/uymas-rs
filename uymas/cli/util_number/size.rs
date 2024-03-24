@@ -116,7 +116,35 @@ impl Size for f64 {
     }
 
     fn human_size_1000(&self) -> String {
-        let (v, unit) = size_transform_1024(*self);
+        let (v, unit) = size_transform_1000(*self);
+        format!("{:.3} {}", v, unit)
+    }
+}
+
+impl Size for u64 {
+    fn file_size(&self) -> (Self, String)
+    where
+        Self: Sized,
+    {
+        let file_size = size_transform_1024(*self as f64);
+        (file_size.0 as u64, file_size.1)
+    }
+
+    fn file_size_1000(&self) -> (Self, String)
+    where
+        Self: Sized,
+    {
+        let file_size = size_transform_1000(*self as f64);
+        (file_size.0 as u64, file_size.1)
+    }
+
+    fn human_size(&self) -> String {
+        let (v, unit) = size_transform_1024(*self as f64);
+        format!("{:.3} {}", v, unit)
+    }
+
+    fn human_size_1000(&self) -> String {
+        let (v, unit) = size_transform_1000(*self as f64);
         format!("{:.3} {}", v, unit)
     }
 }
