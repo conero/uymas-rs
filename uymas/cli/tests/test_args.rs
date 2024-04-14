@@ -102,7 +102,7 @@ fn test_get_value_i32() {
 #[test]
 fn test_parse_string() {
     // case
-    let mut data = HashMap::from([
+    let data = HashMap::from([
         ("output".to_string(), vec!["./bin/name".to_string()]),
         ("arch".to_string(), vec!["amd64".to_string()]),
         (
@@ -131,4 +131,41 @@ fn test_parse_string() {
     let ref_msg =
         String::from("jc build --output ./bin/name --arch amd64 -x windows unix --stage b1 t2 --utf8 --release --mini -g");
     assert_eq!(app.parse_string(), ref_msg);
+}
+
+#[test]
+fn test_next() {
+    // git remote set-head <name> (-a | --auto | -d | --delete | <branch>)
+    let args =
+        <Args as ArgsNew<Vec<&str>>>::new(vec!["git", "remote", "set-head", "mirrors", "--auto"]);
+    assert_eq!(
+        Some(String::from("mirrors")),
+        args.clone().next(String::from("set-head"))
+    );
+    assert_eq!(
+        Some(String::from("--auto")),
+        args.clone().next(String::from("mirrors"))
+    );
+    assert_eq!(
+        Some(String::from("remote")),
+        args.clone().next(String::from("git"))
+    );
+    assert_eq!(None, args.clone().next(String::from("--auto")));
+    assert_eq!(None, args.clone().next(String::from("no-exits")));
+}
+
+#[test]
+fn test_prev() {
+    // git diff v0.0.1 main --stat
+    let args = <Args as ArgsNew<Vec<&str>>>::new(vec!["git", "diff", "v0.0.1", "main", "--stat"]);
+    assert_eq!(
+        Some(String::from("v0.0.1")),
+        args.clone().prev(String::from("main"))
+    );
+    assert_eq!(
+        Some(String::from("diff")),
+        args.clone().prev(String::from("v0.0.1"))
+    );
+    assert_eq!(None, args.clone().prev(String::from("no-exits")));
+    assert_eq!(None, args.clone().prev(String::from("git")));
 }

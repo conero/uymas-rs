@@ -342,6 +342,44 @@ impl Args {
 
         raw.join(" ")
     }
+
+    /// 获取原始输入指定选项（参数）的下一个值
+    pub fn next(self, cur: String) -> Option<String> {
+        let mut inx: i32 = -1;
+        let mut cur_index = -1;
+        for s in &self.raw {
+            inx += 1;
+            if String::from(s) == cur {
+                cur_index = inx + 1;
+                break;
+            }
+        }
+
+        let size = self.raw.len();
+        if cur_index > -1 && cur_index < size as i32 {
+            return Some(self.raw[cur_index as usize].clone());
+        }
+        None
+    }
+
+    /// 获取原始输入指定选项（参数）的上一个值
+    pub fn prev(self, cur: String) -> Option<String> {
+        let mut inx: i32 = -1;
+        let mut cur_index = -1;
+        for s in &self.raw {
+            inx += 1;
+            if String::from(s) == cur {
+                cur_index = inx - 1;
+                break;
+            }
+        }
+
+        let size = self.raw.len();
+        if cur_index > -1 && cur_index < size as i32 {
+            return Some(self.raw[cur_index as usize].clone());
+        }
+        None
+    }
 }
 
 pub trait ArgsFromOs {
