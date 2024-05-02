@@ -169,3 +169,39 @@ fn test_prev() {
     assert_eq!(None, args.clone().prev(String::from("no-exits")));
     assert_eq!(None, args.clone().prev(String::from("git")));
 }
+
+#[test]
+fn test_get_data() {
+    let arg = Args::from_vec(vec![
+        "app",
+        "--options",
+        "A",
+        "B",
+        "C c",
+        "D",
+        "-xty",
+        "1",
+        "2",
+        "3",
+        "4",
+    ]);
+
+    assert_eq!(
+        arg.get_data("options"),
+        Some(&vec![
+            "A".to_string(),
+            "B".to_string(),
+            "C c".to_string(),
+            "D".to_string()
+        ])
+    );
+    assert_eq!(
+        arg.get_data("y"),
+        Some(&vec![
+            "1".to_string(),
+            "2".to_string(),
+            "3".to_string(),
+            "4".to_string()
+        ])
+    );
+}

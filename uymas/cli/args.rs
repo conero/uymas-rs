@@ -21,7 +21,16 @@ pub struct Args {
 }
 
 impl Args {
-    /// 获取命令行参数
+    /// 获取命令行参数，支持数组读取
+    /// ```
+    /// use uymas_cli::args::Args;
+    /// use uymas_cli::cmd::{Cmd, CmdRunOs, CmdRunStr};
+    /// let arg = Args::from_vec(vec!["app", "--options", "A", "B", "C c", "D", "-xty", "1", "2", "3", "4"]);
+    /// assert_eq!(arg.get_data("options"), Some(&vec!["A".to_string(), "B".to_string(), "C c".to_string(), "D".to_string()]));
+    /// assert_eq!(arg.get_data("y"), Some(&vec!["1".to_string(), "2".to_string(), "3".to_string(), "4".to_string()]));
+    ///
+    /// ```
+    /// **get_data** 下个版本调整 key 参数类型为 Vec<&str>
     pub fn get_data(&self, key: &str) -> Option<&Vec<String>> {
         if let Some(value) = self.get_value(vec![key]) {
             return Some(value);
@@ -215,6 +224,12 @@ impl Args {
             raw: args.to_vec(),
             is_extern_subc: false,
         }
+    }
+
+    /// 使用参数命令行列表
+    pub fn from_vec(args: Vec<&str>) -> Self {
+        let v_list: Vec<String> = args.iter().map(|v| String::from(*v)).collect();
+        Self::from_args(&v_list)
     }
 
     /// 根据 os::args 获取参数
