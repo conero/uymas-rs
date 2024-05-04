@@ -6,7 +6,7 @@ use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
 /// 命令行解析后的参数
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Args {
     // 命令行
     pub command: String,

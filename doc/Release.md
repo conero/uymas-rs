@@ -19,6 +19,7 @@
 - **cli**
   - feat: Args 新增方法用于获取原始输入的参数的指定位置的前一个或后一个，即`next` 和 `prev`
   - feat: Args 新增方法`from_vec`用于实现vec<&str>实例化本身类
+  - pref: Args 结构体默认继承 `Default`
   - doc: 文档更新，添加示例代码
 
 
