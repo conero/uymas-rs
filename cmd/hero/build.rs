@@ -48,7 +48,7 @@ fn main() {
         }
     ");
     // 文件写入
-    fs::write(&dest_path, content).unwrap();
+    fs::write(dest_path, content).unwrap();
 
     println!("cargo:rerun-if-changed=build.rs");
 }

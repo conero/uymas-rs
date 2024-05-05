@@ -344,7 +344,7 @@ impl Args {
 
         // 选项复原
         for opt in self.option.clone().into_iter() {
-            if self.data.get(&opt).is_some() {
+            if self.data.contains_key(&opt) {
                 continue;
             }
             let name = if opt.len() == 1 {
@@ -364,7 +364,7 @@ impl Args {
         let mut cur_index = -1;
         for s in &self.raw {
             inx += 1;
-            if String::from(s) == cur {
+            if *s == cur {
                 cur_index = inx + 1;
                 break;
             }
@@ -383,7 +383,7 @@ impl Args {
         let mut cur_index = -1;
         for s in &self.raw {
             inx += 1;
-            if String::from(s) == cur {
+            if *s == cur {
                 cur_index = inx - 1;
                 break;
             }

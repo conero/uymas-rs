@@ -55,7 +55,7 @@ impl ErrMsg {
     /// }
     /// ```
     pub fn throw(msg: String) -> Box<dyn Error> {
-        Box::try_from(<ErrMsg as ErrMsgString>::new(msg)).unwrap()
+        Box::from(<ErrMsg as ErrMsgString>::new(msg))
     }
 
     /// 抛出`str`异常消息
@@ -70,6 +70,6 @@ impl ErrMsg {
     /// }
     /// ```
     pub fn throw_str(msg: &str) -> Box<dyn Error> {
-        Box::try_from(<ErrMsg as ErrMsgString>::new(String::from(msg))).unwrap()
+        Box::from(<ErrMsg as ErrMsgString>::new(String::from(msg)))
     }
 }

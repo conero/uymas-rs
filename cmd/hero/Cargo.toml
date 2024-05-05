@@ -15,8 +15,8 @@ cli = { version="2.0.2", path = "../../uymas/cli", package = "uymas_cli"}
 env_logger = "0.10.2"
 lazy_static = "1.4.0"
 log = "0.4.21"
-serde = { version = "1.0.197", features = ["derive"] }
-toml = "0.8.10"
+serde = { version = "1.0.200", features = ["derive"] }
+toml = "0.8.12"
 
 [build-dependencies]
 cargo_metadata = "0.18.1"

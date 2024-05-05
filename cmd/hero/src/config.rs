@@ -47,7 +47,7 @@ pub fn read_file() -> Result<Config, String> {
         return Err(format!("读取解析错误，\n  reference -> {}", er));
     }
 
-    return Ok(yaml_rslt.unwrap());
+    Ok(yaml_rslt.unwrap())
 }
 
 impl Default for Config {
