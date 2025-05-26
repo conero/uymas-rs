@@ -21,6 +21,9 @@
   - feat: Args 新增方法`from_vec`用于实现vec<&str>实例化本身类
   - pref: Args 结构体默认继承 `Default`
   - doc: 文档更新，添加示例代码
+- **util_fmt**
+  - feat: 新增方法 `list_format`、`table_format` 用于实现格式化输出
+
 - **cmd/hero**
   - pref: 根据 clippy 提示进行代码优化
 

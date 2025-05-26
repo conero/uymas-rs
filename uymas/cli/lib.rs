@@ -30,6 +30,9 @@ pub mod err;
 /// fs文件操作助手
 pub mod util_fs;
 
+/// 格式化输出工具
+pub mod util_fmt;
+
 /// 辅助工具
 pub mod util;
 
