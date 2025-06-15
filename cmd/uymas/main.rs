@@ -3,7 +3,7 @@ extern crate cli;
 use cli::action::Action;
 use cli::args::Args;
 use cli::cmd::{ActionApp, Cmd, CmdRunArgs, CmdRunOs};
-use cli::{args, RELEASE, VERSION};
+use cli::{args, util, RELEASE, VERSION};
 use std::time::Instant;
 
 // 文件引入
@@ -36,6 +36,9 @@ impl Action for Version {
 fn action_help(_: &Args) {
     println!("命令如下：");
     println!("test,t    参数解析测试");
+    println!("  -for [number]         设置遍历次数");
+    println!("  -sum                  是否进行累加");
+    println!("  -inline,-I            单行输出");
     println!("version   版本号输出，--verbose,-V 详细信息输出");
     println!("repl      交互式命令行测试");
     println!();
@@ -46,6 +49,10 @@ fn action_help(_: &Args) {
 }
 
 fn action_test(arg: &Args) {
+    if arg.contain_opts(vec!["for"]) {
+        action_test_for(arg);
+        std::process::exit(0);
+    }
     println!("command: {}", arg.command);
     println!("sub_command: {}", arg.sub_command);
     println!("option: {:?}", arg.option);
@@ -60,6 +67,42 @@ fn action_test(arg: &Args) {
         );
     }
     println!();
+}
+
+fn action_test_for(arg: &Args) {
+    let spend_fn = util::spend_time_diff();
+    let mut for_num = arg.get_value_i32(vec!["for"]);
+    if for_num < 1 {
+        for_num = 1_000_000_000;
+    }
+    let is_sum = arg.contain_opts(vec!["sum"]);
+    let mut sum: u64 = 0;
+    for i in 0..for_num {
+        // 累计
+        if is_sum {
+            sum += (i as u64) + 1;
+        }
+    }
+
+    // 本次耗时：3.1271454s， 累加值：5984901096340228336，循环数 3459740191
+    if arg.contain_opts(vec!["inline", "I"]) {
+        if !is_sum {
+            println!("本次耗时：{:.6}s， 循环数 {}", spend_fn(), for_num);
+            return;
+        }
+        print!(
+            "本次耗时：{:.6}s， 累加值：{}，循环数 {}",
+            spend_fn(),
+            sum,
+            for_num
+        );
+        return;
+    }
+
+    if is_sum {
+        println!("累加值：{}", sum);
+    }
+    println!("本次耗时：{:.6}s， 循环数 {}", spend_fn(), for_num);
 }
 
 // 二进制文件

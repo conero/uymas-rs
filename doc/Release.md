@@ -23,9 +23,11 @@
   - doc: 文档更新，添加示例代码
 - **util_fmt**
   - feat: 新增方法 `list_format`、`table_format` 用于实现格式化输出
-
 - **cmd/hero**
   - pref: 根据 clippy 提示进行代码优化
+- **cmd/hero**
+  - pref: test 命令支持 uymas 通用性能测试
+
 
 
 
