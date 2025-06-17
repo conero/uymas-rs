@@ -69,9 +69,10 @@ fn action_test(arg: &Args) {
     println!();
 }
 
+// 测试用例如： for ($i = 0; $i -lt 20; $i++){$get = .\target\release\uymas.exe test --for 3459740191 --sum --inline;echo "「$($i+1)」-> $get";}
 fn action_test_for(arg: &Args) {
     let spend_fn = util::spend_time_diff();
-    let mut for_num = arg.get_value_i32(vec!["for"]);
+    let mut for_num = arg.get_value_i128(vec!["for"]);
     if for_num < 1 {
         for_num = 1_000_000_000;
     }
