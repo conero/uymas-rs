@@ -79,6 +79,22 @@ impl Args {
         0
     }
 
+    /// 获取 i128 数据类型
+    pub fn get_value_i128(&self, keys: Vec<&str>) -> i128 {
+        if let Some(v) = self.get_option::<i128>(keys) {
+            return v;
+        }
+        0
+    }
+
+    /// 获取 i64 数据类型
+    pub fn get_value_i64(&self, keys: Vec<&str>) -> i64 {
+        if let Some(v) = self.get_option::<i64>(keys) {
+            return v;
+        }
+        0
+    }
+
     /// 获取 bool 类型数据
     pub fn get_value_bool(&self, keys: Vec<&str>) -> bool {
         if let Some(v) = self.get_option::<bool>(keys) {
