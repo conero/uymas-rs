@@ -282,7 +282,7 @@ impl Cmd {
         if let Some(action_default) = &mut self.action_default {
             action_default(args);
         } else {
-            println!("请您至少为 Cmd 应用注册默认方法");
+            default_empty();
         }
     }
 
@@ -400,4 +400,19 @@ impl Default for Cmd {
             cmd_alias: None,
         }
     }
+}
+
+//  命令注册默认方法
+fn default_empty() {
+    println!();
+    println!("-----------------------------------------------");
+    println!("欢饮您使用 uymas-rs 来构建命令行程序");
+    println!();
+    println!("-----------------------------------------------");
+    println!();
+    println!("您可以注册命令入口方法来运行她");
+    println!(
+        "欢迎您到访： https://gitee.com/conero/uymas-rs  或  https://github.com/conero/uymas-rs"
+    );
+    println!("鄙人乃谢之")
 }

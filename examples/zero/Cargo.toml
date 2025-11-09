@@ -1,0 +1,7 @@
+[package]
+name = "zero"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cli = { version="2.0.2", path = "../../uymas/cli", package = "uymas_cli"}
